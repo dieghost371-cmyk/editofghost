@@ -1,0 +1,2640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GHOST EDITZ</title>
+<meta name="description" content="GHOST EDITZ — official site. Free Fire content, edits, updates, my games, and more.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ghosteditz.work.gd/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GHOST EDITZ">
+<meta property="og:title" content="GHOST EDITZ — Official Site">
+<meta property="og:description" content="Free Fire content, edits, updates, my games, and more.">
+<meta property="og:url" content="https://ghosteditz.work.gd/">
+<meta name="theme-color" content="#0a0505">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"GHOST EDITZ","alternateName":["Ghost Editz","GhostEditz"],"url":"https://ghosteditz.work.gd/"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=Audiowide&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0505;
+    --cyan:#ff2438;
+    --cyan-dim:#b3121f;
+    --blood:#ff0022;
+    --violet:#ff5a3c;
+    --ink:#f7e4e4;
+    --ink-dim:#a38585;
+    --glass:rgba(16,7,8,0.68);
+    --border:rgba(255,36,56,0.28);
+    --radius:2px;
+    --theme-fade:.7s ease;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Rajdhani',sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    min-height:100vh;
+    overflow-x:hidden;
+    line-height:1.5;
+  }
+  h1,h2,h3,.brand,.glitch{font-family:'Orbitron',sans-serif;}
+  a{color:var(--cyan);text-decoration:none;transition:color var(--theme-fade);}
+  ::selection{background:var(--blood);color:#000;}
+
+  /* ---------- background layer (live wallpaper video, no controls/icon) ---------- */
+  .bg-video{
+    position:fixed;inset:0;z-index:-2;
+    width:100%;height:100%;
+    object-fit:cover;
+    pointer-events:none;
+    filter:brightness(0.7) saturate(1.2);
+    opacity:0;
+    transition:opacity .5s ease;
+  }
+  .bg-video.ready{opacity:1;}
+  #bg-video-mobile{display:none;}
+  #bg-video-desktop{display:block;}
+  @media(max-width:760px){
+    #bg-video-desktop{display:none;}
+    #bg-video-mobile{display:block;}
+  }
+  #bg-fallback{
+    position:fixed;inset:0;z-index:-3;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(255,20,40,0.12), transparent 45%),
+      radial-gradient(circle at 85% 75%, rgba(255,0,30,0.10), transparent 45%),
+      linear-gradient(180deg,#050202,#0d0505 60%,#050202);
+  }
+  #bg-scrim{
+    position:fixed;inset:0;z-index:-1;
+    background:linear-gradient(180deg, rgba(5,2,2,0.30), rgba(5,2,2,0.55) 60%, rgba(5,2,2,0.72) 100%);
+    pointer-events:none;
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 22px;
+    background:rgba(5,6,7,0.55);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+    transition:border-color var(--theme-fade);
+  }
+  .brand{
+    font-weight:900;letter-spacing:2px;font-size:20px;
+    color:var(--ink);cursor:pointer;user-select:none;
+  }
+  .brand span{color:var(--cyan);text-shadow:0 0 12px rgba(255,36,56,0.7);transition:color var(--theme-fade);}
+  nav.links{display:flex;gap:6px;align-items:center;}
+  nav.links button{
+    background:none;border:1px solid transparent;color:var(--ink-dim);
+    font-family:'Rajdhani',sans-serif;font-weight:600;font-size:15px;
+    padding:8px 12px;cursor:pointer;letter-spacing:0.5px;
+    transition:color .2s, border-color .2s;
+  }
+  nav.links button:hover{color:var(--cyan);}
+  nav.links button.active{color:var(--cyan);border-color:var(--border);}
+  #navToggle{display:none;background:none;border:1px solid var(--border);color:var(--cyan);padding:6px 10px;cursor:pointer;font-size:18px;}
+
+  @media(max-width:760px){
+    nav.links{
+      position:fixed;top:56px;right:0;left:0;
+      flex-direction:column;align-items:stretch;
+      background:rgba(5,6,7,0.96);
+      border-bottom:1px solid var(--border);
+      max-height:0;overflow:hidden;transition:max-height .25s ease;
+    }
+    nav.links.open{max-height:400px;}
+    nav.links button{text-align:left;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.05);}
+    #navToggle{display:block;}
+  }
+
+  main{padding-top:70px;min-height:100vh;}
+  .page{display:none;max-width:1080px;margin:0 auto;padding:48px 22px 90px;animation:fadeIn .35s ease;}
+  .page.active{display:block;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:70px 0 40px;text-align:left;}
+  .hero .tag{color:var(--blood);font-size:14px;letter-spacing:4px;font-weight:600;}
+  .glitch{
+    font-size:clamp(40px,9vw,88px);font-weight:900;line-height:1;margin:14px 0;
+    color:var(--ink);position:relative;
+  }
+  .glitch::before,.glitch::after{
+    content:attr(data-text);position:absolute;left:0;top:0;width:100%;
+    overflow:hidden;color:var(--ink);background:var(--bg);
+  }
+  .glitch::before{
+    color:var(--cyan);animation:glitchTop 2.4s infinite linear;clip-path:inset(0 0 55% 0);
+    animation-delay:.15s;
+  }
+  .glitch::after{
+    color:var(--blood);animation:glitchBot 2.4s infinite linear;clip-path:inset(55% 0 0 0);
+    animation-delay:.25s;
+  }
+  @keyframes glitchTop{0%{transform:translate(0,0);}20%{transform:translate(-3px,-2px);}40%{transform:translate(3px,1px);}60%{transform:translate(-2px,0);}100%{transform:translate(0,0);opacity:0;}}
+  @keyframes glitchBot{0%{transform:translate(0,0);}20%{transform:translate(3px,2px);}40%{transform:translate(-3px,-1px);}60%{transform:translate(2px,0);}100%{transform:translate(0,0);opacity:0;}}
+  .hero p.desc{max-width:560px;color:var(--ink-dim);font-size:18px;margin-bottom:26px;text-shadow:0 2px 10px rgba(0,0,0,0.85);}
+  .btn{
+    display:inline-block;padding:12px 26px;font-family:'Orbitron',sans-serif;font-weight:700;
+    font-size:13px;letter-spacing:1.5px;border:1px solid var(--cyan);color:var(--cyan);
+    background:rgba(255,36,56,0.08);cursor:pointer;transition:.2s, border-color var(--theme-fade), color var(--theme-fade);
+  }
+  .btn:hover{background:var(--cyan);color:#000;box-shadow:0 0 22px rgba(255,36,56,0.5);}
+  .btn.red{border-color:var(--blood);color:var(--blood);background:rgba(255,27,76,0.06);transition:.2s, border-color var(--theme-fade), color var(--theme-fade);}
+  .btn.red:hover{background:var(--blood);color:#000;box-shadow:0 0 22px rgba(255,27,76,0.5);}
+  .btn.ghost{border-color:rgba(255,255,255,0.25);color:var(--ink-dim);background:transparent;}
+  .btn.ghost:hover{border-color:var(--ink);color:var(--ink);box-shadow:none;}
+  .btn[disabled]{opacity:.5;cursor:not-allowed;}
+
+  .stats{display:flex;gap:28px;margin-top:44px;flex-wrap:wrap;}
+  .stats div{border-left:2px solid var(--border);padding-left:12px;}
+  .stats b{display:block;font-family:'Orbitron';font-size:22px;color:var(--cyan);transition:color var(--theme-fade);}
+  .stats span{color:var(--ink-dim);font-size:13px;letter-spacing:1px;}
+
+
+  /* ---------- members strip (logged-in profiles, side-scrolling) ---------- */
+  .members{margin-top:34px;max-width:100%;}
+  .members-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;color:var(--ink-dim);}
+  .members-head b{color:var(--cyan);font-size:13px;}
+  .members-head .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);}
+  .members-viewport{overflow:hidden;position:relative;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);
+            mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);}
+  .members-viewport.static{overflow-x:auto;scrollbar-width:none;}
+  .members-viewport.static::-webkit-scrollbar{display:none;}
+  .members-track{display:flex;gap:12px;width:max-content;padding:4px 2px;}
+  .members-viewport.marquee .members-track{animation:membersScroll var(--mdur,30s) linear infinite;}
+  .members-viewport.marquee:hover .members-track,
+  .members-viewport.marquee:active .members-track{animation-play-state:paused;}
+  @keyframes membersScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  .member{display:flex;align-items:center;gap:9px;padding:7px 14px 7px 7px;background:rgba(5,6,7,0.62);border:1px solid var(--border);backdrop-filter:blur(6px);flex:0 0 auto;}
+  .member img,.member .m-fallback{width:34px;height:34px;border-radius:50%;flex:0 0 34px;border:1.5px solid var(--cyan);object-fit:cover;background:rgba(255,36,56,0.08);}
+  .member .m-fallback{display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-size:13px;color:var(--cyan);}
+  .member .m-name{font-family:'Orbitron',sans-serif;font-size:12px;color:var(--ink);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .member.me{box-shadow:0 0 14px rgba(255,36,56,0.35);}
+  @media (prefers-reduced-motion:reduce){.members-viewport.marquee .members-track{animation:none;}}
+
+
+  /* ---------- special tracks: video takeover + green-screen dancers ---------- */
+  #takeoverVideo{
+    position:fixed;inset:0;z-index:-1;width:100%;height:100%;object-fit:cover;
+    pointer-events:none;opacity:0;transition:opacity .6s ease;filter:brightness(.9) saturate(1.15);
+  }
+  :root{--dance-scale:1;}
+  main,header{transform:scale(var(--dance-scale,1));transform-origin:50% 0%;will-change:transform;}
+  body.shaking main,body.shaking header{transform:none;}
+
+  #takeoverVideo.on{opacity:1;}
+  body.takeover #bg-scrim{opacity:.18;transition:opacity .6s ease;}
+  #sideCut{
+    position:fixed;bottom:0;z-index:45;pointer-events:none;
+    height:min(78vh,620px);width:auto;max-width:78vw;
+    filter:url(#chromaGreen) drop-shadow(0 0 14px rgba(0,0,0,.45));
+    opacity:0;transition:transform .9s cubic-bezier(.2,.9,.3,1.1), opacity .5s ease;
+  }
+  #sideCut.side-right{right:0;transform:translateX(105%);}
+  #sideCut.side-left{left:0;transform:translateX(-105%);}
+  #sideCut.on{opacity:1;transform:translateX(0);}
+  @keyframes siteShake{
+    0%{transform:translate(0,0) rotate(0);}
+    10%{transform:translate(-9px,6px) rotate(-.7deg);}
+    20%{transform:translate(8px,-8px) rotate(.6deg);}
+    30%{transform:translate(-7px,-5px) rotate(.5deg);}
+    40%{transform:translate(10px,7px) rotate(-.6deg);}
+    50%{transform:translate(-8px,4px) rotate(.4deg);}
+    60%{transform:translate(7px,-9px) rotate(-.5deg);}
+    70%{transform:translate(-10px,-4px) rotate(.7deg);}
+    80%{transform:translate(8px,6px) rotate(-.4deg);}
+    90%{transform:translate(-6px,-7px) rotate(.5deg);}
+    100%{transform:translate(0,0) rotate(0);}
+  }
+  @keyframes videoShake{
+    0%,100%{transform:scale(1.1) translate(0,0);}
+    25%{transform:scale(1.1) translate(-14px,9px);}
+    50%{transform:scale(1.1) translate(12px,-11px);}
+    75%{transform:scale(1.1) translate(-9px,-8px);}
+  }
+  body.shaking main,body.shaking header{animation:siteShake .26s linear infinite;}
+  body.shaking #takeoverVideo{animation:videoShake .2s linear infinite;}
+  @media (prefers-reduced-motion:reduce){
+    body.shaking main,body.shaking header{animation-duration:.6s;}
+    body.shaking #takeoverVideo{animation:none;}
+  }
+
+
+  /* ---------- intro / preloader: sun-ray reveal ---------- */
+  #introLoader{
+    position:fixed;inset:0;z-index:99999;background:#050607;
+    display:flex;align-items:center;justify-content:center;overflow:hidden;
+    transition:opacity .7s ease;
+  }
+  #introLoader.hide{opacity:0;pointer-events:none;}
+  #introSun{
+    position:absolute;width:38vmax;height:38vmax;border-radius:50%;
+    background:radial-gradient(circle, var(--cyan,#ff2438) 0%, rgba(255,36,56,0.55) 35%, rgba(255,36,56,0) 70%);
+    filter:blur(2px);
+    animation:introPulse 1.6s ease-in-out infinite;
+  }
+  @keyframes introPulse{
+    0%,100%{ transform:scale(1); opacity:.85; }
+    50%{ transform:scale(1.12); opacity:1; }
+  }
+  #introRays{
+    position:absolute;inset:-20%;
+    background:conic-gradient(from 0deg,
+      rgba(255,255,255,0.05) 0deg, rgba(255,255,255,0) 8deg,
+      rgba(255,255,255,0.05) 16deg, rgba(255,255,255,0) 24deg,
+      rgba(255,255,255,0.05) 32deg, rgba(255,255,255,0) 40deg,
+      rgba(255,255,255,0.05) 48deg, rgba(255,255,255,0) 56deg,
+      rgba(255,255,255,0.05) 64deg, rgba(255,255,255,0) 72deg,
+      rgba(255,255,255,0.05) 80deg, rgba(255,255,255,0) 88deg,
+      rgba(255,255,255,0.05) 96deg, rgba(255,255,255,0) 104deg,
+      rgba(255,255,255,0.05) 112deg, rgba(255,255,255,0) 120deg,
+      rgba(255,255,255,0.05) 128deg, rgba(255,255,255,0) 136deg,
+      rgba(255,255,255,0.05) 144deg, rgba(255,255,255,0) 152deg,
+      rgba(255,255,255,0.05) 160deg, rgba(255,255,255,0) 168deg,
+      rgba(255,255,255,0.05) 176deg, rgba(255,255,255,0) 184deg,
+      rgba(255,255,255,0.05) 192deg, rgba(255,255,255,0) 200deg,
+      rgba(255,255,255,0.05) 208deg, rgba(255,255,255,0) 216deg,
+      rgba(255,255,255,0.05) 224deg, rgba(255,255,255,0) 232deg,
+      rgba(255,255,255,0.05) 240deg, rgba(255,255,255,0) 248deg,
+      rgba(255,255,255,0.05) 256deg, rgba(255,255,255,0) 264deg,
+      rgba(255,255,255,0.05) 272deg, rgba(255,255,255,0) 280deg,
+      rgba(255,255,255,0.05) 288deg, rgba(255,255,255,0) 296deg,
+      rgba(255,255,255,0.05) 304deg, rgba(255,255,255,0) 312deg,
+      rgba(255,255,255,0.05) 320deg, rgba(255,255,255,0) 328deg,
+      rgba(255,255,255,0.05) 336deg, rgba(255,255,255,0) 344deg,
+      rgba(255,255,255,0.05) 352deg, rgba(255,255,255,0) 360deg);
+    animation:introSpin 12s linear infinite;
+    mix-blend-mode:screen;
+  }
+  @keyframes introSpin{ from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+  #introLogo{
+    position:relative;z-index:2;font-family:'Audiowide','Orbitron',sans-serif;font-weight:400;
+    font-size:clamp(26px,7vw,44px);letter-spacing:8px;
+    background:linear-gradient(100deg,#fff 0%, var(--cyan,#ff2438) 30%, #fff 50%, var(--cyan,#ff2438) 70%, #fff 100%);
+    background-size:300% 100%;
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+    filter:drop-shadow(0 0 14px var(--cyan,#ff2438)) drop-shadow(0 0 32px var(--cyan,#ff2438));
+    animation:introShimmer 2.2s linear infinite, introTracking 1.1s cubic-bezier(.2,.8,.2,1) both;
+  }
+  @keyframes introShimmer{ 0%{background-position:0% 0;} 100%{background-position:300% 0;} }
+  @keyframes introTracking{
+    0%{ letter-spacing:22px; opacity:0; filter:blur(6px) drop-shadow(0 0 0 transparent); }
+    100%{ letter-spacing:8px; opacity:1; }
+  }
+  #introLoader.burst #introSun{ animation:introBurst .7s ease forwards; }
+  @keyframes introBurst{ to{ transform:scale(7); opacity:0; } }
+  #introLoader.burst #introLogo{ animation:none; opacity:0; transition:opacity .3s ease; }
+  #introLoader.burst #introRays{ animation:none; opacity:0; transition:opacity .3s ease; }
+  @media (prefers-reduced-motion:reduce){
+    #introSun,#introRays,#introLogo{ animation:none; }
+  }
+
+  /* ---------- cards / glass ---------- */
+  .card{
+    background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);
+    padding:22px;backdrop-filter:blur(6px);transition:border-color var(--theme-fade);
+  }
+  .section-title{
+    font-size:26px;margin-bottom:6px;color:var(--ink);
+  }
+  .section-sub{color:var(--ink-dim);font-size:14px;margin-bottom:28px;letter-spacing:0.5px;text-shadow:0 2px 8px rgba(0,0,0,0.85);}
+
+  /* ---------- updates feed ---------- */
+  .update{
+    border-left:2px solid var(--cyan);padding:16px 20px;margin-bottom:18px;
+    background:rgba(255,255,255,0.02);transition:border-color var(--theme-fade);
+  }
+  .update h3{font-size:18px;color:var(--ink);margin-bottom:4px;}
+  .update .meta{font-size:12px;color:var(--ink-dim);letter-spacing:1px;margin-bottom:10px;}
+  .update p{color:#c7dddc;font-size:15px;white-space:pre-wrap;}
+  .update .media{margin-top:12px;}
+  .update .media img{max-width:100%;border:1px solid var(--border);}
+  .update .media video{max-width:100%;border:1px solid var(--border);}
+  .update .media iframe{width:100%;aspect-ratio:16/9;border:1px solid var(--border);}
+  .update .admin-row{margin-top:12px;display:flex;gap:8px;}
+  .update .admin-row button{
+    background:none;border:1px solid var(--blood);color:var(--blood);
+    padding:6px 12px;font-size:12px;cursor:pointer;letter-spacing:1px;
+  }
+  .empty-note{color:var(--ink-dim);font-style:italic;padding:20px 0;}
+
+  /* ---------- music search ---------- */
+  .music-row{
+    display:flex;align-items:center;gap:14px;
+    background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);
+    padding:10px 14px;margin-bottom:10px;cursor:pointer;transition:border-color .2s,background .2s;
+  }
+  .music-row:hover{background:rgba(255,255,255,0.05);}
+  .music-row.playing{border-color:var(--cyan);box-shadow:0 0 14px rgba(255,36,56,0.25);}
+  .music-row img{width:46px;height:46px;border-radius:2px;flex-shrink:0;object-fit:cover;}
+  .music-row .mtxt{flex:1;min-width:0;}
+  .music-row .mtxt b{display:block;font-size:14px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .music-row .mtxt span{display:block;font-size:12px;color:var(--ink-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .music-row .mplay{font-family:'Orbitron',sans-serif;font-size:11px;color:var(--cyan);flex-shrink:0;letter-spacing:1px;}
+  .music-empty{color:var(--ink-dim);font-size:14px;padding:20px 0;text-align:center;}
+
+  /* ---------- orders page ---------- */
+  .order-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;}
+  .order-tab{
+    font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:1px;padding:10px 16px;
+    background:rgba(255,255,255,0.03);border:1px solid var(--border);color:var(--ink-dim);
+    cursor:pointer;border-radius:var(--radius);transition:.2s, border-color var(--theme-fade), color var(--theme-fade);
+  }
+  .order-tab.active{color:var(--cyan);border-color:var(--cyan);background:rgba(255,36,56,0.08);}
+  .order-tab-panel{display:none;}
+  .order-tab-panel.active{display:block;}
+  .order-group-title{font-family:'Orbitron',sans-serif;font-size:14px;color:var(--ink);margin-bottom:12px;}
+  .order-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
+  .order-card{
+    background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);
+    padding:18px;display:flex;flex-direction:column;gap:8px;transition:border-color var(--theme-fade);
+  }
+  .order-card .oc-name{font-family:'Orbitron',sans-serif;font-size:14px;color:var(--ink);}
+  .order-card .oc-price{font-family:'Orbitron',sans-serif;font-size:20px;color:var(--cyan);transition:color var(--theme-fade);}
+  .order-card .oc-price span{font-size:11px;color:var(--ink-dim);font-weight:400;}
+  .order-card ul{list-style:none;margin:4px 0;padding:0;}
+  .order-card ul li{font-size:12px;color:var(--ink-dim);padding:3px 0;padding-left:16px;position:relative;}
+  .order-card ul li::before{content:'✓';position:absolute;left:0;color:var(--cyan);}
+
+
+  /* ---------- games grid ---------- */
+  .game-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin-top:10px;}
+  .game-card{
+    background:var(--glass);border:1px solid var(--border);padding:20px;
+    transition:.2s;position:relative;overflow:hidden;
+  }
+  .game-card:hover{border-color:var(--cyan);box-shadow:0 0 18px rgba(255,36,56,0.18);}
+  .game-card h3{font-size:16px;color:var(--ink);margin-bottom:6px;}
+  .game-card p{font-size:13px;color:var(--ink-dim);margin-bottom:12px;}
+  .badge{
+    display:inline-block;font-size:10px;letter-spacing:1px;padding:3px 8px;
+    border:1px solid var(--violet);color:var(--violet);margin-bottom:10px;
+  }
+  .game-thumb{
+    width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--border);
+    margin-bottom:12px;background:rgba(255,255,255,0.03);
+  }
+  .dl-btn{
+    display:block;width:100%;text-align:center;margin-top:6px;
+    box-shadow:0 0 15px rgba(255,0,34,0.45);
+  }
+  .dl-btn:hover{box-shadow:0 0 24px rgba(255,0,34,0.7);}
+
+  /* ---------- forms ---------- */
+  .form-box{max-width:380px;}
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-size:12px;letter-spacing:1px;color:var(--ink-dim);margin-bottom:6px;}
+  .field input,.field textarea,.field select{
+    width:100%;background:rgba(255,255,255,0.03);border:1px solid var(--border);
+    color:var(--ink);padding:11px 12px;font-family:'Rajdhani',sans-serif;font-size:15px;
+  }
+  .field textarea{resize:vertical;min-height:90px;}
+  .field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--cyan);}
+  .auth-switch{margin-top:16px;font-size:13px;color:var(--ink-dim);}
+  .auth-switch a{cursor:pointer;}
+  .error-msg{color:var(--blood);font-size:13px;margin:10px 0;min-height:1em;}
+  .divider{display:flex;align-items:center;gap:10px;margin:18px 0;color:var(--ink-dim);font-size:12px;}
+  .divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--border);}
+  .google-btn{
+    display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+    padding:11px;background:#fff;color:#111;border:0;font-weight:700;font-size:14px;cursor:pointer;
+  }
+  .google-btn:hover{background:#eee;}
+
+  /* ---------- profile ---------- */
+  .profile-head{display:flex;align-items:center;gap:16px;margin-bottom:30px;}
+  .profile-head img{width:64px;height:64px;border-radius:50%;border:2px solid var(--cyan);}
+  .profile-head .avatar-fallback{
+    width:64px;height:64px;border-radius:50%;border:2px solid var(--cyan);
+    display:flex;align-items:center;justify-content:center;font-family:'Orbitron';font-size:22px;color:var(--cyan);
+    background:rgba(255,36,56,0.08);
+  }
+  .profile-head h2{font-size:20px;}
+  .profile-head p{color:var(--ink-dim);font-size:13px;}
+  .kv{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:14px;}
+  .kv span:first-child{color:var(--ink-dim);}
+  .admin-chip{
+    display:inline-block;margin-top:10px;font-size:11px;letter-spacing:1px;
+    color:var(--blood);border:1px solid var(--blood);padding:3px 10px;
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top:1px solid var(--border);padding:26px 22px;text-align:center;
+    color:var(--ink-dim);font-size:12px;letter-spacing:1px;
+  }
+  footer a{color:var(--ink-dim);margin:0 8px;}
+  footer a:hover{color:var(--cyan);}
+
+  .toast{
+    position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:#0c1113;border:1px solid var(--cyan);color:var(--ink);
+    padding:12px 20px;font-size:14px;z-index:9996;opacity:0;pointer-events:none;
+    transition:.25s;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* ---------- update notifications ---------- */
+  .nbadge{display:inline-block;min-width:18px;padding:1px 6px;margin-left:6px;border-radius:9px;
+    background:var(--blood);color:#000;font-size:11px;font-weight:700;line-height:16px;text-align:center;}
+  #notice{
+    position:fixed;right:18px;bottom:76px;z-index:9997;max-width:340px;width:calc(100% - 36px);
+    background:#0c1113;border:1px solid var(--cyan);border-left:4px solid var(--blood);
+    padding:14px 16px;cursor:pointer;opacity:0;transform:translateY(20px);pointer-events:none;
+    transition:.3s;box-shadow:0 0 24px rgba(255,36,56,0.25);
+  }
+  #notice.show{opacity:1;transform:translateY(0);pointer-events:auto;}
+  #notice b{display:block;font-family:'Orbitron',sans-serif;font-size:13px;color:var(--cyan);margin-bottom:4px;}
+  #notice span{display:block;font-size:14px;color:var(--ink);}
+  #notice small{display:block;margin-top:6px;font-size:11px;letter-spacing:1px;color:var(--ink-dim);}
+
+  .lock-note{
+    color:var(--ink-dim);text-align:center;padding:60px 20px;font-size:15px;
+  }
+
+  /* ---------- sakura overlay (always on top, constant) ---------- */
+  #sakura-overlay{
+    position:fixed;inset:0;z-index:9990;
+    width:100%;height:100%;object-fit:cover;
+    pointer-events:none;mix-blend-mode:screen;opacity:0.85;
+  }
+
+  /* ---------- now playing badge (falls in when a song starts) ---------- */
+  #now-playing{
+    position:fixed;top:-80px;left:50%;transform:translateX(-50%);
+    z-index:9995;background:var(--glass);border:1px solid var(--border);
+    padding:9px 18px;font-size:12px;letter-spacing:0.5px;color:var(--ink-dim);
+    backdrop-filter:blur(6px);white-space:nowrap;
+    transition:top .6s cubic-bezier(.2,.9,.3,1.3);
+    display:flex;align-items:center;gap:8px;cursor:pointer;
+  }
+  #now-playing.show{top:64px;}
+  #now-playing b{color:var(--cyan);font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:1px;}
+  #now-playing .np-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);}
+
+  /* ---------- anime-vibe audio visualizer (floating corner widget) ---------- */
+  #anime-viz{
+    position:fixed;right:16px;bottom:16px;z-index:9993;
+    display:flex;align-items:flex-end;gap:3px;
+    height:34px;padding:10px 12px;
+    background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);
+    backdrop-filter:blur(6px);
+    box-shadow:0 0 18px rgba(255,36,56,0.15);
+    cursor:pointer;user-select:none;
+  }
+  #anime-viz .bar{
+    width:3px;border-radius:2px;
+    background:linear-gradient(180deg,var(--viz-c1,#ff2dd4),var(--viz-c2,#00e5ff) 55%,var(--viz-c3,#8a2be2));
+    box-shadow:0 0 6px var(--viz-c1,rgba(255,45,212,0.65));
+    height:6px;
+    animation:vizBounce 1s ease-in-out infinite;
+    animation-play-state:paused;
+    opacity:0.55;
+    transition:background .5s ease;
+  }
+  #anime-viz.playing .bar{animation-play-state:running;opacity:1;}
+  #anime-viz .bar:nth-child(1){animation-duration:.78s;animation-delay:-.1s;}
+  #anime-viz .bar:nth-child(2){animation-duration:.62s;animation-delay:-.42s;}
+  #anime-viz .bar:nth-child(3){animation-duration:.9s;animation-delay:-.05s;}
+  #anime-viz .bar:nth-child(4){animation-duration:.55s;animation-delay:-.3s;}
+  #anime-viz .bar:nth-child(5){animation-duration:.7s;animation-delay:-.6s;}
+  #anime-viz .bar:nth-child(6){animation-duration:.85s;animation-delay:-.2s;}
+  #anime-viz .bar:nth-child(7){animation-duration:.6s;animation-delay:-.5s;}
+  @keyframes vizBounce{
+    0%{height:5px;}
+    20%{height:26px;}
+    45%{height:10px;}
+    65%{height:32px;}
+    85%{height:14px;}
+    100%{height:5px;}
+  }
+  @media(max-width:760px){
+    #anime-viz{right:10px;bottom:10px;height:28px;padding:8px 10px;}
+    #bgAudioToggle{right:76px;bottom:10px;width:36px;height:36px;font-size:14px;}
+  }
+
+  /* ---------- logged-in user badge ---------- */
+  #homeUserBadge{
+    position:fixed;
+    left:16px;
+    bottom:16px;
+    z-index:9994;
+    display:none;
+    align-items:center;
+    gap:10px;
+    padding:8px 13px 8px 8px;
+    background:rgba(5,6,7,0.72);
+    border:1px solid var(--border);
+    backdrop-filter:blur(8px);
+    box-shadow:0 0 18px rgba(255,36,56,0.16);
+    cursor:pointer;
+    max-width:260px;
+  }
+  #homeUserBadge.show{display:flex;}
+  #homeUserBadge .hub-avatar{
+    width:38px;
+    height:38px;
+    flex:0 0 38px;
+    border-radius:50%;
+    object-fit:cover;
+    border:1.5px solid var(--cyan);
+    background:rgba(255,36,56,0.08);
+  }
+  #homeUserBadge .hub-avatar-fallback{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Orbitron',sans-serif;
+    font-size:14px;
+    color:var(--cyan);
+  }
+  #homeUserBadge .hub-text{
+    min-width:0;
+  }
+  #homeUserBadge .hub-label{
+    display:block;
+    font-size:9px;
+    letter-spacing:1.5px;
+    color:var(--ink-dim);
+    line-height:1.1;
+  }
+  #homeUserBadge .hub-name{
+    display:block;
+    max-width:190px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font-family:'Orbitron',sans-serif;
+    font-size:12px;
+    color:var(--ink);
+    margin-top:3px;
+  }
+  @media(max-width:760px){
+    #homeUserBadge{
+      left:10px;
+      bottom:10px;
+      max-width:220px;
+      padding-right:10px;
+    }
+    #homeUserBadge .hub-name{max-width:150px;}
+  }
+
+  #bgAudioToggle{
+    position:fixed;right:104px;bottom:16px;z-index:9993;
+    width:40px;height:40px;border-radius:50%;
+    background:var(--glass);border:1px solid var(--border);
+    color:var(--cyan);font-size:16px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    backdrop-filter:blur(6px);
+    box-shadow:0 0 18px rgba(255,36,56,0.15);
+    transition:border-color var(--theme-fade), color var(--theme-fade);
+  }
+</style>
+</head>
+<body>
+
+<div id="introLoader">
+  <div id="introRays"></div>
+  <div id="introSun"></div>
+  <div id="introLogo">GHOST EDITZ</div>
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <!-- green-screen remover: turns green pixels transparent (no CORS needed) -->
+  <filter id="chromaGreen" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%">
+    <feColorMatrix type="matrix" values="
+      1    0    0    0  0
+      0.15 0.7  0.15 0  0
+      0    0    1    0  0
+      1.25 -2.5 1.25 0  1"/>
+  </filter>
+</svg>
+<div id="bg-fallback"></div>
+<video id="bg-video-mobile" class="bg-video" autoplay muted loop playsinline preload="auto" aria-hidden="true"
+  src="https://livegirl.edgeone.dev/" onerror="this.style.display='none'"></video>
+<video id="bg-video-desktop" class="bg-video" autoplay muted loop playsinline preload="auto" aria-hidden="true"
+  src="https://livepc.edgeone.dev/" onerror="this.style.display='none'"></video>
+<video id="takeoverVideo" muted playsinline preload="auto" aria-hidden="true"></video>
+<div id="bg-scrim"></div>
+<video id="sideCut" muted playsinline preload="auto" aria-hidden="true"></video>
+
+<video id="sakura-overlay" autoplay muted loop playsinline preload="auto" aria-hidden="true"
+  src="https://sakuraaa.edgeone.dev/" onerror="this.style.display='none'"></video>
+
+<div id="now-playing" onclick="skipTrack()">
+  <span class="np-dot"></span><span>NOW PLAYING —</span> <b id="npTitle"></b>
+</div>
+
+<div id="anime-viz" onclick="skipTrack()" title="Skip track">
+  <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+</div>
+
+<button id="bgAudioToggle" onclick="toggleBgAudio()" title="Pause music">⏸</button>
+<div id="homeUserBadge" onclick="go('profile')" title="Open your profile">
+  <div id="homeUserAvatar" class="hub-avatar hub-avatar-fallback">?</div>
+  <div class="hub-text">
+    <span class="hub-label">LOGGED IN AS</span>
+    <span id="homeUserName" class="hub-name">User</span>
+  </div>
+</div>
+
+
+<audio id="bgAudio" preload="auto" autoplay muted></audio>
+
+<header>
+  <div class="brand" onclick="go('home')">GHOST<span>EDITZ</span></div>
+  <button id="navToggle" onclick="document.querySelector('nav.links').classList.toggle('open')">☰</button>
+  <nav class="links">
+    <button data-p="home" onclick="go('home')">Home</button>
+    <button data-p="updates" onclick="go('updates')">Updates<span class="nbadge" id="updBadge" style="display:none"></span></button>
+    <button data-p="mygame" onclick="go('mygame')">My Game</button>
+    <button data-p="music" onclick="go('music')">Music</button>
+    <button data-p="orders" onclick="go('orders')">Orders</button>
+    <button data-p="contact" onclick="go('contact')">Contact</button>
+    <button id="navProfileBtn" data-p="profile" onclick="go('profile')" style="display:none">Profile</button>
+    <button id="navAdminBtn" data-p="admin" onclick="go('admin')" style="display:none">Admin</button>
+    <button id="navAuthBtn" data-p="auth" onclick="go('auth')">Login</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HOME -->
+  <section id="page-home" class="page">
+    <div class="hero">
+      <div class="tag">GHOST BRAND // OFFICIAL SITE</div>
+      <h1 class="glitch" data-text="GHOST EDITZ">GHOST EDITZ</h1>
+      <p class="desc">Survive. Dominate. Vanish. Free Fire content, edits, and everything GHOST — updates, my games, and more, all in one place.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <button class="btn" onclick="go('updates')">See Updates</button>
+        <button class="btn ghost" onclick="go('mygame')">My Games</button>
+        <button class="btn ghost notif-btn" onclick="enableNotifications()">🔔 Enable notifications</button>
+      </div>
+      <div class="stats">
+        <div><b id="statCount">—</b><span>UPDATES POSTED</span></div>
+        <div><b id="statVisits">—</b><span>SITE VISITS</span></div>
+        <div><b id="statOrders">—</b><span>ORDERS PLACED</span></div>
+        <div><b id="statMembers">—</b><span>MEMBERS</span></div>
+        <div><b>SL</b><span>SRI LANKA</span></div>
+      </div>
+      <div class="members" id="membersWrap" style="display:none">
+        <div class="members-head"><span class="dot"></span><span>LOGGED-IN MEMBERS</span><b id="membersCount">0</b></div>
+        <div class="members-viewport" id="membersViewport"><div class="members-track" id="membersTrack"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UPDATES -->
+  <section id="page-updates" class="page">
+    <div class="section-title">Updates</div>
+    <div class="section-sub">Latest posts, photos & videos from GHOST EDITZ</div>
+    <div style="margin-bottom:22px;"><button class="btn ghost notif-btn" onclick="enableNotifications()">🔔 Enable notifications</button></div>
+    <div id="updatesList"></div>
+  </section>
+
+  <!-- MY GAME -->
+  <section id="page-mygame" class="page">
+    <div class="section-title">My Game</div>
+    <div class="section-sub">Games built under GHOST Brand — download for Android</div>
+    <div class="game-grid">
+      <div class="game-card">
+        <span class="badge">ANDROID · APK</span>
+        <img class="game-thumb" src="https://religious-yellow-e72548mcrt.edgeone.app" alt="Game 1" onerror="this.style.display='none'">
+        <h3>GHOST Game 1</h3>
+        <a class="btn red dl-btn" href="https://cdn.applikeweb.com/downloads/android_3ac5db52-3eef-40b4-90ea-5a952b484914_1.0.0.apk" download>Click to Download</a>
+      </div>
+      <div class="game-card">
+        <span class="badge">ANDROID · APK</span>
+        <img class="game-thumb" src="https://greasy-violet-l12qepu7ul.edgeone.app/images.jpeg" alt="Game 2" onerror="this.style.display='none'">
+        <h3>GHOST Game 2</h3>
+        <a class="btn red dl-btn" href="https://www.mediafire.com/file/ryfwsv88pstwm5k/offline_apk.7z" target="_blank" rel="noopener">Click to Download</a>
+      </div>
+    </div>
+    <p style="color:var(--ink-dim);font-size:13px;margin-top:22px;">More games coming soon — check Updates for release news.</p>
+  </section>
+
+  <!-- MUSIC -->
+  <section id="page-music" class="page">
+    <div class="section-title">Music</div>
+    <div class="section-sub">Search any song — tap PREVIEW for a quick 30s clip, or FULL SONG to play it all the way through</div>
+    <div class="card" style="margin-bottom:22px;">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <input id="musicSearchInput" type="text" placeholder="Search for a song or artist..."
+          style="flex:1;min-width:200px;background:rgba(255,255,255,0.04);border:1px solid var(--border);
+          color:var(--ink);padding:12px 14px;font-family:'Rajdhani',sans-serif;font-size:15px;border-radius:var(--radius);"
+          onkeydown="if(event.key==='Enter') searchMusic()">
+        <button class="btn" onclick="searchMusic()">Search</button>
+      </div>
+    </div>
+    <div id="fullPlayerWrap" style="display:none;margin-bottom:22px;">
+      <div class="card" style="padding:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <b id="fullPlayerTitle" style="font-family:'Orbitron';font-size:13px;color:var(--cyan);"></b>
+          <button class="btn red" style="padding:6px 14px;font-size:11px;" onclick="closeFullPlayer()">✕ CLOSE</button>
+        </div>
+        <div style="position:relative;padding-top:56.25%;background:#000;">
+          <div id="fullPlayerFrame" style="position:absolute;top:0;left:0;width:100%;height:100%;"></div>
+        </div>
+        <p id="fullPlayerMsg" style="display:none;color:var(--ink-dim);font-size:12px;margin-top:10px;text-align:center;">Couldn't find a playable copy of this one — try "Open on YouTube" below.</p>
+        <a id="fullPlayerYtLink" href="#" target="_blank" rel="noopener"
+          style="display:block;text-align:center;margin-top:10px;font-family:'Orbitron';font-size:11px;
+          letter-spacing:1px;color:var(--ink-dim);">If it won't play here, open it on YouTube instead ↗</a>
+      </div>
+    </div>
+    <div id="musicResults"></div>
+    <p style="color:var(--ink-dim);font-size:12px;margin-top:16px;">Previews are official 30-second clips. Full Song plays the complete track through YouTube's own player.</p>
+  </section>
+
+  <!-- ORDERS -->
+  <section id="page-orders" class="page">
+    <div class="section-title">Orders</div>
+    <div class="section-sub">VPN plans, custom websites, and domains — pick one and send your order</div>
+
+    <div class="order-tabs">
+      <button class="order-tab active" data-tab="vpn" onclick="switchOrderTab('vpn')">VPN Plans</button>
+      <button class="order-tab" data-tab="website" onclick="switchOrderTab('website')">Website Plans</button>
+      <button class="order-tab" data-tab="domain" onclick="switchOrderTab('domain')">Domain Plans</button>
+      <button class="order-tab" data-tab="designer" onclick="switchOrderTab('designer')">Designer</button>
+    </div>
+
+    <div id="orderTab-vpn" class="order-tab-panel active">
+      <h3 class="order-group-title">Premium Plans</h3>
+      <div id="vpnPremiumList" class="order-grid"></div>
+      <h3 class="order-group-title" style="margin-top:24px;">Bypass Plans <span style="color:var(--ink-dim);font-size:12px;font-weight:400;">(Dialog 348/488/1188)</span></h3>
+      <div id="vpnBypassList" class="order-grid"></div>
+    </div>
+
+    <div id="orderTab-website" class="order-tab-panel">
+      <div id="websiteList" class="order-grid"></div>
+    </div>
+
+    <div id="orderTab-domain" class="order-tab-panel">
+      <div class="card" style="max-width:420px;">
+        <label style="display:block;font-size:12px;color:var(--ink-dim);margin-bottom:8px;">Domain duration</label>
+        <select id="domainYears" class="order-input" onchange="updateDomainPrice()">
+          <option value="1">1 Year</option>
+          <option value="2">2 Years</option>
+          <option value="3">3 Years</option>
+          <option value="4">4 Years</option>
+          <option value="5">5 Years</option>
+          <option value="6">6 Years</option>
+          <option value="7">7 Years</option>
+          <option value="8">8 Years</option>
+          <option value="9">9 Years</option>
+          <option value="10">10 Years</option>
+        </select>
+        <div style="margin:16px 0;font-family:'Orbitron';font-size:24px;color:var(--cyan);">Rs. <span id="domainPrice">500</span></div>
+        <button class="btn" style="width:100%;" onclick="orderDomain()">ORDER DOMAIN</button>
+      </div>
+    </div>
+
+    <div id="orderTab-designer" class="order-tab-panel">
+      <p class="section-sub" style="margin-top:-6px;">Logo · Banner · Thumbnail — tell us what you want and we'll design it<br>ලාංඡන · බැනර් · තම්බ්නේල් — oyata one dizain eka details ekak denna</p>
+      <div id="designerList" class="order-grid"></div>
+    </div>
+  </section>
+
+  <!-- ORDER MODAL -->
+  <div id="orderModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.8);align-items:center;justify-content:center;padding:16px;">
+    <div class="card" style="max-width:420px;width:100%;max-height:88vh;overflow-y:auto;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+        <b style="font-family:'Orbitron';font-size:14px;color:var(--cyan);">ORDER</b>
+        <button class="btn red" style="padding:6px 14px;font-size:11px;" onclick="closeOrder()" type="button">✕ CLOSE</button>
+      </div>
+      <p id="orderSummary" style="margin-bottom:14px;color:var(--ink);font-weight:700;"></p>
+      <form id="orderForm" onsubmit="submitOrder(event)" style="display:flex;flex-direction:column;gap:12px;">
+        <input class="order-input" name="First Name" required placeholder="First name">
+        <input class="order-input" name="Last Name" required placeholder="Last name">
+        <input class="order-input" name="Age" type="number" min="13" max="100" required placeholder="Age">
+        <input class="order-input" name="WhatsApp Number" required placeholder="WhatsApp number">
+        <div id="mcFields" style="display:none;flex-direction:column;gap:12px;">
+          <input class="order-input" name="Server Name" id="mcName" maxlength="32" pattern="[A-Za-z0-9 _.\-]{3,32}" placeholder="Server name (3-32 letters/numbers)">
+          <select class="order-input" name="Software" id="mcSoftware" onchange="loadMcVersions()">
+            <option value="paper">Paper (plugins — recommended)</option>
+            <option value="vanilla">Vanilla</option>
+            <option value="fabric">Fabric (mods)</option>
+            <option value="forge">Forge (mods)</option>
+          </select>
+          <select class="order-input" name="Version" id="mcVersion"><option value="">Loading versions…</option></select>
+        </div>
+        <div id="designerFields" style="display:none;flex-direction:column;gap:6px;">
+          <label style="font-size:12px;color:var(--ink-dim);">What do you want? Colors, style, size, text, references...<br>Oyata one dize eka kiyanna — colors, style, size, text, reference wage — Sinhala hari English hari denna</label>
+          <textarea class="order-input" name="Design Details" id="designerDetails" rows="4" placeholder="e.g. Logo for my Free Fire YouTube channel, red/black theme, name GHOST EDITZ... / udhaharanayak: mage channel ekata logo ekak, red/black colors, name eka GHOST EDITZ..."></textarea>
+        </div>
+        <label style="font-size:12px;color:var(--ink-dim);">Payment receipt (screenshot)</label>
+        <input class="order-input" name="attachment" type="file" accept="image/*" required>
+        <button type="submit" class="btn" style="width:100%;margin-top:6px;">SUBMIT ORDER</button>
+        <p style="font-size:11px;color:var(--ink-dim);text-align:center;">Sent straight to our email — we'll confirm your order there.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="page-contact" class="page">
+    <div class="section-title">Contact</div>
+    <div class="section-sub">Get in touch with GHOST EDITZ</div>
+    <p style="margin-bottom:20px;font-size:15px;">📞 <a href="tel:0743010225">0743010225</a></p>
+    <div class="card form-box">
+      <div class="field">
+        <label>Name</label>
+        <input type="text" id="cName" placeholder="Your name">
+      </div>
+      <div class="field">
+        <label>Your Email</label>
+        <input type="email" id="cEmail" placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label>Message</label>
+        <textarea id="cMsg" placeholder="Type your message..."></textarea>
+      </div>
+      <button class="btn" onclick="sendContact()">Send Message</button>
+      <div class="error-msg" id="contactMsg"></div>
+    </div>
+  </section>
+
+  <!-- PRIVACY -->
+  <section id="page-privacy" class="page">
+    <div class="section-title">Privacy Policy</div>
+    <div class="section-sub">Last updated: 2026</div>
+    <div class="card" style="max-width:720px;color:#c7dddc;font-size:15px;">
+      <p style="margin-bottom:14px;"><b>What we collect:</b> when you sign in with Google or create an account with email and password, we store your name, email address, and profile photo (if provided) using Firebase Authentication.</p>
+      <p style="margin-bottom:14px;"><b>Why:</b> this lets you have a profile on GHOST EDITZ and lets admins post updates you can see. We do not sell or share your data with third parties.</p>
+      <p style="margin-bottom:14px;"><b>Contact form:</b> messages sent through the Contact page are used only to reply to you.</p>
+      <p style="margin-bottom:14px;"><b>Cookies / storage:</b> Firebase uses local storage on your device to keep you signed in. No tracking or ad cookies are used.</p>
+      <p style="margin-bottom:14px;"><b>Your rights:</b> you can request account deletion at any time by contacting us through the Contact page.</p>
+      <p>By creating an account, you agree to this policy.</p>
+    </div>
+  </section>
+
+  <!-- AUTH -->
+  <section id="page-auth" class="page">
+    <div class="section-title" id="authTitle">Login</div>
+    <div class="section-sub">Sign in to GHOST EDITZ</div>
+    <div class="card form-box">
+      <button class="google-btn" onclick="googleLogin()">
+        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.8 32.6 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34.5 5.5 29.6 3.5 24 3.5 12.7 3.5 3.5 12.7 3.5 24S12.7 44.5 24 44.5 44.5 35.3 44.5 24c0-1.2-.1-2.4-.3-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.8 18.9 13 24 13c3.1 0 5.8 1.1 8 3l6-6C34.5 6.5 29.6 4.5 24 4.5c-7.7 0-14.3 4.3-17.7 10.2z"/><path fill="#4CAF50" d="M24 44.5c5.5 0 10.4-1.9 14.3-5.1l-6.6-5.4C29.6 35.6 26.9 36.5 24 36.5c-5.3 0-9.7-3.4-11.3-8.1l-6.6 5.1C9.6 39.9 16.3 44.5 24 44.5z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-1 2.9-3 5.3-5.6 6.9l6.6 5.4C40.3 36.9 44.5 31 44.5 24c0-1.2-.1-2.4-.9-3.5z"/></svg>
+        Continue with Google
+      </button>
+      <div class="divider">OR</div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="authEmail" placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="authPass" placeholder="••••••••">
+      </div>
+      <button class="btn" id="authSubmitBtn" onclick="emailAuth()">Login</button>
+      <div class="error-msg" id="authMsg"></div>
+      <div class="auth-switch" id="authSwitchNote">
+        No account? <a onclick="toggleAuthMode()">Create one</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFILE -->
+  <section id="page-profile" class="page">
+    <div class="section-title">Profile</div>
+    <div id="profileBody"></div>
+  </section>
+
+  <!-- ADMIN -->
+  <section id="page-admin" class="page">
+    <div id="adminGuard"></div>
+    <div id="adminBody" style="display:none">
+      <div class="section-title">Admin Panel</div>
+      <div class="section-sub">Post & manage everything on GHOST EDITZ</div>
+      <div class="card form-box" style="margin-bottom:34px;">
+        <div class="section-title" id="adminFormTitle" style="font-size:16px;margin-bottom:14px;">New Announcement</div>
+        <div class="field">
+          <label>Title</label>
+          <input type="text" id="aTitle" placeholder="Update title">
+        </div>
+        <div class="field">
+          <label>Description</label>
+          <textarea id="aDesc" placeholder="What's new..."></textarea>
+        </div>
+        <div class="field">
+          <label>Media type</label>
+          <select id="aType">
+            <option value="none">No media</option>
+            <option value="image">Image</option>
+            <option value="video">Video (mp4 link)</option>
+            <option value="youtube">YouTube link</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Media link (video / YouTube / photo URL)</label>
+          <input type="text" id="aUrl" placeholder="https://...">
+        </div>
+        <div class="field">
+          <label>Or upload a photo — it is hosted automatically</label>
+          <input type="file" id="aFile" accept="image/*" onchange="pickPhoto(this)">
+          <img id="aPreview" alt="" style="display:none;max-width:100%;margin-top:10px;border:1px solid var(--border);">
+          <button type="button" class="btn ghost" id="aClearPhoto" onclick="clearPhoto()" style="display:none;margin-top:8px;padding:6px 12px;">Remove photo</button>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <button class="btn" id="aSubmitBtn" onclick="postUpdate()">Post Update</button>
+          <button class="btn ghost" id="aCancelBtn" onclick="cancelEdit()" style="display:none">Cancel</button>
+        </div>
+        <div class="error-msg" id="adminMsg"></div>
+      </div>
+      <div class="section-title" style="font-size:18px;">Manage posts</div>
+      <div id="adminList" style="margin-top:14px;"></div>
+      <div class="section-title" style="font-size:18px;margin-top:40px;">Messages</div>
+      <div class="section-sub">Sent from the Contact page</div>
+      <div id="adminMsgs"></div>
+      <div class="section-title" style="font-size:18px;margin-top:40px;">Orders</div>
+      <div class="section-sub">VPN / Website / Domain buy requests — update status and reply to customers</div>
+      <div id="adminOrders"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div>© 2026 GHOST EDITZ — Survive. Dominate. Vanish.</div>
+  <div style="margin-top:6px;">📞 <a href="tel:0743010225">0743010225</a></div>
+  <div style="margin-top:8px;">
+    <a onclick="go('home')">Home</a>·
+    <a onclick="go('privacy')">Privacy Policy</a>·
+    <a onclick="go('contact')">Contact</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<div id="notice" onclick="openNotice()"><b id="noticeTitle"></b><span id="noticeBody"></span><small>TAP TO VIEW</small></div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+/* ================= FIREBASE (safe init — page still works if this fails to load) ================= */
+const firebaseConfig = {
+  apiKey: "AIzaSyDIaT4VD2rzaGqsDv_RxGm_IYnX4OiJeXA",
+  authDomain: "bloodlegen-5e51c.firebaseapp.com",
+  databaseURL: "https://bloodlegen-5e51c-default-rtdb.firebaseio.com",
+  projectId: "bloodlegen-5e51c",
+  storageBucket: "bloodlegen-5e51c.firebasestorage.app",
+  messagingSenderId: "130652097903",
+  appId: "1:130652097903:web:e6fbbca95927cbe5486c9a",
+  measurementId: "G-1Y2V69S719"
+};
+
+let auth, db;
+try{
+  firebase.initializeApp(firebaseConfig);
+  auth = firebase.auth();
+  db = firebase.database();
+}catch(e){
+  console.error('Firebase failed to load — check internet connection.', e);
+  const offlineErr = ()=>Promise.reject({code:'offline', message:'No connection to Firebase — check your internet.'});
+  auth = {
+    currentUser:null,
+    onAuthStateChanged:(cb)=>cb(null),
+    signOut:()=>Promise.resolve(),
+    signInWithEmailAndPassword:offlineErr,
+    createUserWithEmailAndPassword:offlineErr,
+    signInWithPopup:offlineErr
+  };
+  const dummyRef = { push:offlineErr, set:offlineErr, update:offlineErr, remove:offlineErr, on:()=>{}, off:()=>{}, once:offlineErr, orderByChild(){return this;} };
+  db = { ref:()=>dummyRef };
+}
+
+const ADMIN_EMAIL = "dieghost371@gmail.com";
+function isAdminUser(u){ return !!(u && u.email && u.email.toLowerCase()===ADMIN_EMAIL); }
+
+// shared state (declared early so nothing hits it before initialisation)
+let pendingImage = null;      // compressed photo waiting to be posted
+let editingId = null;
+let editingOldUrl = '';
+let adminItems = {};          // id -> post, used by Edit / Delete buttons
+let adminRef = null, msgsRef = null, ordersRef = null, myOrdersRef = null, customersRef = null, myCustomerMsgsRef = null;
+let _adminOrdersSnap = [], _adminCustomersSnap = {};
+const imgCache = {};
+
+/* ================= BACKGROUND (device based live wallpaper — CSS handles visibility, this just nudges playback) ================= */
+(function setBackground(){
+  try{
+    const isMobile = window.matchMedia("(max-width: 760px)").matches;
+    const mobileVid = document.getElementById('bg-video-mobile');
+    const desktopVid = document.getElementById('bg-video-desktop');
+    const active = isMobile ? mobileVid : desktopVid;
+    if(active) active.play().catch(()=>{ /* autoplay blocked, video stays as static frame */ });
+  }catch(e){ /* background video is optional, never block the page */ }
+})();
+
+/* ================= ROUTER ================= */
+const PAGES = ["home","updates","mygame","music","orders","contact","privacy","auth","profile","admin"];
+let authMode = "login"; // or "signup"
+
+/* ---------- per-page background wallpaper ---------- */
+const PAGE_BG = {
+  home:   { mobile:'https://livegirl.edgeone.dev/',          desktop:'https://livepc.edgeone.dev/' },
+  admin:  { mobile:'https://monileadmin.edgeone.dev/',       desktop:'https://pcadmin.edgeone.dev/' },
+  updates:{ mobile:'https://itachimobile.edgeone.dev/',      desktop:'https://itachipc.edgeone.dev/' },
+  music:  { mobile:'https://gtrmobile.edgeone.dev/',         desktop:'https://gtrr35oc.edgeone.dev/' },
+  orders: { mobile:'https://carsportgirlmobile.edgeone.dev/',desktop:'https://carsportgirlmobile.edgeone.dev/' },
+  mygame: { mobile:'https://animegirlgtrmobile.edgeone.dev/',desktop:'https://lovely-coral-vn8syagj.edgeone.dev/' }
+};
+function updatePageBackground(page){
+  const bg = PAGE_BG[page] || PAGE_BG.home;
+  const mobileVid = document.getElementById('bg-video-mobile');
+  const desktopVid = document.getElementById('bg-video-desktop');
+  if(mobileVid && mobileVid.src !== bg.mobile){
+    mobileVid.classList.remove('ready');
+    mobileVid.src = bg.mobile; mobileVid.load(); mobileVid.play().catch(()=>{});
+  }
+  if(desktopVid && desktopVid.src !== bg.desktop){
+    desktopVid.classList.remove('ready');
+    desktopVid.src = bg.desktop; desktopVid.load(); desktopVid.play().catch(()=>{});
+  }
+}
+['bg-video-mobile','bg-video-desktop'].forEach(id=>{
+  const v = document.getElementById(id);
+  if(!v) return;
+  if(v.readyState >= 2) v.classList.add('ready'); // already loaded before this listener attached
+  v.addEventListener('loadeddata', ()=>v.classList.add('ready'));
+});
+
+function go(page){
+  if(!PAGES.includes(page)) page = "home";
+  PAGES.forEach(p=>{
+    document.getElementById('page-'+p).classList.toggle('active', p===page);
+  });
+  document.querySelectorAll('nav.links button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.p===page);
+  });
+  document.querySelector('nav.links').classList.remove('open');
+  window.scrollTo({top:0,behavior:'smooth'});
+  window.location.hash = page;
+  updatePageBackground(page);
+  updateHomeUserBadge(auth.currentUser);
+  if(page==='profile') renderProfile();
+  if(page==='admin') renderAdmin();
+  if(page!=='music'){ stopPreview(); closeFullPlayer(); }
+  if(page==='updates') markUpdatesSeen();
+}
+window.addEventListener('hashchange', ()=>{
+  const p = window.location.hash.replace('#','');
+  if(PAGES.includes(p)) go(p);
+});
+
+/* ================= MUSIC SEARCH (iTunes Search API — free, no key, 30s previews) ================= */
+let previewAudio = null;
+let previewPlayingRow = null;
+let wasSiteAudioPlaying = false;
+
+async function searchMusic(){
+  const q = document.getElementById('musicSearchInput').value.trim();
+  const results = document.getElementById('musicResults');
+  if(!q){ results.innerHTML = '<div class="music-empty">Type something to search.</div>'; return; }
+  results.innerHTML = '<div class="music-empty">Searching…</div>';
+  try{
+    const res = await fetch('https://itunes.apple.com/search?media=music&limit=25&term=' + encodeURIComponent(q));
+    const data = await res.json();
+    if(!data.results || !data.results.length){
+      results.innerHTML = '<div class="music-empty">No results. Try a different search.</div>';
+      return;
+    }
+    results.innerHTML = '';
+    data.results.forEach((track, i)=>{
+      const row = document.createElement('div');
+      row.className = 'music-row';
+      row.dataset.idx = i;
+      const fullQuery = `${track.trackName || ''} ${track.artistName || ''}`.trim();
+      row.innerHTML = `
+        <img src="${track.artworkUrl60 || ''}" alt="" onerror="this.style.visibility='hidden'">
+        <div class="mtxt"><b>${escapeHtml(track.trackName || 'Unknown title')}</b><span>${escapeHtml(track.artistName || '')}</span></div>
+        <div class="mplay">▶ PREVIEW</div>
+        <div class="mfull" style="margin-left:8px;font-family:'Orbitron';font-size:10px;letter-spacing:1px;
+          color:var(--blood);border:1px solid var(--blood);padding:6px 10px;cursor:pointer;white-space:nowrap;">FULL SONG</div>
+      `;
+      row.querySelector('.mplay').onclick = (e)=>{ e.stopPropagation(); playPreview(track.previewUrl, row); };
+      row.querySelector('.mfull').onclick = (e)=>{ e.stopPropagation(); playFullSong(fullQuery, track.trackName, track.artistName); };
+      results.appendChild(row);
+    });
+  }catch(e){
+    results.innerHTML = '<div class="music-empty">Search failed — check your connection and try again.<br><span style="font-size:11px;opacity:.7;">(' + escapeHtml(e.message||'') + ')</span></div>';
+  }
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function playPreview(url, row){
+  if(!url) return;
+  // toggle off if the same row is tapped again
+  if(previewPlayingRow === row){
+    stopPreview();
+    return;
+  }
+  if(!previewAudio){
+    previewAudio = new Audio();
+    previewAudio.addEventListener('ended', stopPreview);
+  }
+  if(!previewPlayingRow){
+    wasSiteAudioPlaying = !bgAudio.paused;
+    bgAudio.pause();
+  }
+  if(previewPlayingRow) previewPlayingRow.classList.remove('playing');
+  previewAudio.src = url;
+  previewAudio.play().catch(()=>{});
+  row.classList.add('playing');
+  previewPlayingRow = row;
+}
+
+function stopPreview(){
+  if(previewAudio){ previewAudio.pause(); }
+  if(previewPlayingRow) previewPlayingRow.classList.remove('playing');
+  previewPlayingRow = null;
+  if(wasSiteAudioPlaying){ bgAudio.play().catch(()=>{}); }
+}
+
+/* Full-length playback via YouTube's own embed player (no API key needed —
+   listType=search plays the best-matching real upload as a queue). This is
+   YouTube's official player, so nothing is downloaded or re-hosted. */
+/* Full-length playback via YouTube's official IFrame Player API (no API key
+   needed for this part — only the Data API's *search* would need a key).
+   We queue a "search as playlist" and, if a particular video refuses to
+   embed, jump to the next matching result automatically instead of getting
+   stuck on a dead player. */
+let ytApiReady = false;
+let ytPlayer = null;
+let ytPendingQuery = null;
+let ytErrorRetries = 0;
+(function loadYouTubeApi(){
+  if(document.getElementById('yt-iframe-api')) return;
+  const tag = document.createElement('script');
+  tag.id = 'yt-iframe-api';
+  tag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
+})();
+window.onYouTubeIframeAPIReady = function(){
+  ytApiReady = true;
+  if(ytPendingQuery){ const q = ytPendingQuery; ytPendingQuery = null; startYtPlayback(q); }
+};
+
+function startYtPlayback(query){
+  ytErrorRetries = 0;
+  document.getElementById('fullPlayerMsg').style.display = 'none';
+  if(!ytPlayer){
+    ytPlayer = new YT.Player('fullPlayerFrame', {
+      width:'100%', height:'100%',
+      playerVars:{ listType:'search', list:query, autoplay:1 },
+      events:{ onError:onYtError }
+    });
+    const fitFrame = setInterval(()=>{
+      const f = ytPlayer.getIframe && ytPlayer.getIframe();
+      if(f){
+        f.style.position='absolute'; f.style.top=0; f.style.left=0;
+        f.style.width='100%'; f.style.height='100%'; f.style.border='0';
+        clearInterval(fitFrame);
+      }
+    }, 200);
+  } else {
+    ytPlayer.loadPlaylist({listType:'search', list:query});
+  }
+}
+
+function onYtError(e){
+  ytErrorRetries++;
+  if(ytErrorRetries <= 6){
+    try{ e.target.nextVideo(); }catch(err){}
+  } else {
+    document.getElementById('fullPlayerMsg').style.display = 'block';
+  }
+}
+
+let fullPlayerWasSiteAudioPlaying = false;
+function playFullSong(query, title, artist){
+  stopPreview();
+  fullPlayerWasSiteAudioPlaying = !bgAudio.paused;
+  bgAudio.pause();
+  const wrap = document.getElementById('fullPlayerWrap');
+  document.getElementById('fullPlayerTitle').textContent = `${title || ''} — ${artist || ''}`;
+  document.getElementById('fullPlayerYtLink').href = 'https://www.youtube.com/results?search_query=' + encodeURIComponent(query);
+  wrap.style.display = 'block';
+  wrap.scrollIntoView({behavior:'smooth', block:'center'});
+  if(ytApiReady){ startYtPlayback(query); } else { ytPendingQuery = query; }
+}
+
+function closeFullPlayer(){
+  const wrap = document.getElementById('fullPlayerWrap');
+  if(ytPlayer && ytPlayer.stopVideo){ try{ ytPlayer.stopVideo(); }catch(e){} }
+  wrap.style.display = 'none';
+  if(fullPlayerWasSiteAudioPlaying){ bgAudio.play().catch(()=>{}); }
+}
+
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+/* ================= ORDERS ================= */
+const VPN_PREMIUM = [
+  { name:'100GB Plan', price:200, features:['100GB Premium Bandwidth','Private Dedicated Client config','30-Day Active Validity','Multi-Network SNI Config','24/7 Priority Support'] },
+  { name:'200GB Plan', price:300, hot:true, features:['200GB Premium Bandwidth','Private Dedicated Client config','30-Day Active Validity','Multi-Network SNI Config','24/7 Priority Support'] },
+  { name:'300GB Plan', price:400, features:['300GB Premium Bandwidth','Private Dedicated Client config','30-Day Active Validity','Multi-Network SNI Config','24/7 Priority Support'] },
+  { name:'Unlimited Plan', price:600, features:['Truly Unlimited Bandwidth','Private Dedicated Client config','30-Day Active Validity','Multi-Network SNI Config','24/7 Priority Support'] }
+];
+const VPN_BYPASS = [
+  { name:'50GB Bypass Plan', price:200, features:['50GB Premium Bypass Bandwidth','Unlimited Bypass Speed (5G Support)','Dialog 348/488/1188 Packages Bypass','Dedicated Private Client Config','30-Day Active Validity'] },
+  { name:'100GB Bypass Plan', price:300, hot:true, features:['100GB Premium Bypass Bandwidth','Unlimited Bypass Speed (5G Support)','Dialog 348/488/1188 Packages Bypass','Dedicated Private Client Config','30-Day Active Validity'] },
+  { name:'350GB Bypass Plan', price:600, features:['350GB Premium Bypass Bandwidth','Unlimited Bypass Speed (5G Support)','Dialog 348/488/1188 Packages Bypass','Dedicated Private Client Config','30-Day Active Validity'] }
+];
+const WEBSITE_PLANS = [
+  { name:'Normal Website', price:500, icon:'💻', features:['Simple informational site','Up to 5 pages','Mobile responsive'] },
+  { name:'Business Website', price:1000, icon:'💼', features:['Professional business site','Contact & services pages','Mobile responsive'] },
+  { name:'Gaming Website', price:2000, icon:'🎮', features:['Gaming-style design','Custom effects & theme','Mobile responsive'] },
+  { name:'Both (Business + Gaming)', price:3500, icon:'🔥', features:['Combined feature set','Fully custom design','Mobile responsive'] }
+];
+const DESIGNER_PLANS = [
+  { name:'Logo Design', price:100, icon:'🎨', features:['Custom logo design','2-3 concept revisions','High-res PNG file'] },
+  { name:'Banner Design', price:100, icon:'🖼️', features:['Custom banner (YouTube/social)','Sized to your platform','High-res file'] },
+  { name:'Thumbnail Design', price:200, icon:'🎬', features:['Eye-catching video thumbnail','Text + effects included','High-res file'] }
+];
+
+/* ================= MINECRAFT SERVER PLANS ================= */
+/* MC_PANEL_URL = where your hosting panel/backend runs (the VPS). Change this one line if the address changes. */
+const MC_PANEL_URL = 'https://mc.ghosteditz.work.gd';
+/* ids + prices must match backend/config/plans.js */
+const MC_PLANS = [
+  { id:'mc_2gb', name:'Starter — 2GB', price:400, icon:'⛏️', features:['2GB RAM · 20 players','Real plugins / mods','24/7 online + auto-restart','Own IP & port','Web console & file manager'] },
+  { id:'mc_4gb', name:'Standard — 4GB', price:800, icon:'🧱', hot:true, features:['4GB RAM · 40 players','Real plugins / mods','24/7 online + auto-restart','Own IP & port','Web console & file manager'] },
+  { id:'mc_6gb', name:'Pro — 6GB', price:1200, icon:'💎', features:['6GB RAM · 60 players','Real plugins / mods','24/7 online + auto-restart','Own IP & port','Web console & file manager'] },
+  { id:'mc_8gb', name:'Ultra — 8GB', price:1600, icon:'🐉', features:['8GB RAM · 100 players','Real plugins / mods','24/7 online + auto-restart','Own IP & port','Web console & file manager'] }
+];
+function renderMcCard(plan){
+  return `
+    <div class="order-card">
+      ${plan.hot ? '<span style="align-self:flex-end;background:var(--cyan);color:#000;font-family:\'Orbitron\';font-size:9px;padding:3px 8px;border-radius:2px;">HOT</span>' : ''}
+      <div style="font-size:28px;">${plan.icon}</div>
+      <div class="oc-name">${escapeHtml(plan.name)}</div>
+      <div class="oc-price">Rs. ${plan.price}<span> /month</span></div>
+      <ul>${plan.features.map(f=>`<li>${escapeHtml(f)}</li>`).join('')}</ul>
+      <button class="btn" style="margin-top:6px;" onclick='openOrder("minecraft", ${JSON.stringify("Minecraft "+plan.name)}, ${plan.price}, ${JSON.stringify(plan.id)})'>ORDER SERVER</button>
+    </div>`;
+}
+async function loadMcVersions(){
+  const sw = document.getElementById('mcSoftware').value;
+  const sel = document.getElementById('mcVersion');
+  sel.innerHTML = '<option value="">Loading versions…</option>';
+  try{
+    const r = await fetch(MC_PANEL_URL + '/api/versions/' + encodeURIComponent(sw));
+    const j = await r.json();
+    if(!r.ok || !j.versions || !j.versions.length) throw new Error('none');
+    sel.innerHTML = j.versions.map(v=>`<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join('');
+  }catch(e){
+    sel.innerHTML = '<option value="">Versions unavailable — close and try again</option>';
+  }
+}
+function setMcFields(on){
+  document.getElementById('mcFields').style.display = on ? 'flex' : 'none';
+  ['mcName','mcSoftware','mcVersion'].forEach(id=>{ document.getElementById(id).required = on; });
+  if(on) loadMcVersions();
+}
+function setDesignerFields(on){
+  document.getElementById('designerFields').style.display = on ? 'flex' : 'none';
+  document.getElementById('designerDetails').required = on;
+}
+function mcOrderBlock(o, isAdmin){
+  if(o.category !== 'minecraft' || !o.mc) return '';
+  const p = MC_PLANS.find(x=>x.id===o.mc.planId);
+  let h = `<div style="margin-top:10px;font-size:13px;color:var(--ink-dim);">⛏️ ${escapeHtml(o.mc.serverName||'')} · ${escapeHtml(o.mc.software||'')} ${escapeHtml(o.mc.version||'')}</div>`;
+  if(o.server){
+    const safe = s => String(s==null?'':s).replace(/[^\w.:-]/g,'');
+    const addr = safe(o.server.host)+':'+safe(o.server.port);
+    h += `<div class="card" style="margin-top:10px;padding:14px;">
+      <div style="font-size:12px;color:var(--ink-dim);">SERVER ADDRESS (Minecraft Java)</div>
+      <div style="font-family:'Orbitron';font-size:15px;color:var(--cyan);margin:4px 0 10px;word-break:break-all;">${addr}</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <button class="btn" style="padding:6px 12px;font-size:11px;" onclick="navigator.clipboard.writeText('${addr}');toast('Copied ✔')">COPY IP</button>
+        <button class="btn" style="padding:6px 12px;font-size:11px;" onclick="window.open(MC_PANEL_URL+'/server/${Number(o.server.id)||0}','_blank')">OPEN PANEL</button>
+      </div>
+      ${o.server.expiresAt ? `<div style="margin-top:10px;font-size:12px;color:var(--ink-dim);">Valid until: ${new Date(o.server.expiresAt).toLocaleDateString()}</div>` : ''}
+      ${o.server.state === 'suspended' ? `<div style="margin-top:8px;color:#ff4d6d;font-size:13px;">⛔ Suspended (month ended). Contact admin to activate it again.</div>` : ''}
+      ${isAdmin ? `<div class="admin-row" style="flex-wrap:wrap;">
+        <button onclick="mcServerAction(${Number(o.server.id)||0}, 'renew', this)">➕ ACTIVATE / RENEW 30 DAYS</button>
+        <button onclick="mcServerAction(${Number(o.server.id)||0}, 'suspend', this)">⏸ SUSPEND</button>
+      </div>` : ''}
+    </div>`;
+  } else if(isAdmin){
+    if(o.status !== 'cancelled'){
+      if(p && Number(o.price) !== p.price) h += `<div style="margin-top:8px;color:#ff4d6d;font-size:12px;">⚠ Price mismatch: order says Rs. ${escapeHtml(String(o.price))} but plan costs Rs. ${p.price}</div>`;
+      h += `<div class="admin-row"><button onclick="buildMcServer('${o.id}', this)">✅ ACCEPT &amp; BUILD SERVER</button></div>`;
+    }
+  } else {
+    h += `<div style="margin-top:8px;font-size:12px;color:var(--ink-dim);">Waiting for admin to confirm your payment — your server IP &amp; port will appear here.</div>`;
+  }
+  return h;
+}
+async function mcServerAction(serverId, action, btn){
+  if(!confirm(action==='renew' ? 'Activate this server / add 30 days?' : 'Suspend this server now?')) return;
+  const label = btn.textContent; btn.disabled = true;
+  try{
+    const token = await auth.currentUser.getIdToken();
+    const r = await fetch(MC_PANEL_URL + '/api/admin/servers/' + Number(serverId) + '/' + action, {
+      method:'POST',
+      headers:{ Authorization:'Bearer '+token, 'Content-Type':'application/json' },
+      body: JSON.stringify(action==='renew' ? { days: 30 } : {})
+    });
+    const j = await r.json().catch(()=>({}));
+    if(!r.ok) throw new Error(j.error || ('HTTP '+r.status));
+    toast(action==='renew' ? 'Server activated ✅ (+30 days)' : 'Server suspended ⏸');
+  }catch(e){ toast(e.message || 'Failed'); }
+  btn.disabled = false; btn.textContent = label;
+}
+async function buildMcServer(orderId, btn){
+  if(!confirm('Payment verified? Build this Minecraft server now?')) return;
+  const label = btn.textContent; btn.disabled = true; btn.textContent = 'BUILDING...';
+  try{
+    const token = await auth.currentUser.getIdToken();
+    const r = await fetch(MC_PANEL_URL + '/api/admin/orders/' + encodeURIComponent(orderId) + '/provision', { method:'POST', headers:{ Authorization:'Bearer '+token } });
+    const j = await r.json().catch(()=>({}));
+    if(!r.ok) throw new Error(j.error || ('HTTP '+r.status));
+    toast('Server is being built ✅ — IP & port will show on the order shortly.');
+  }catch(e){
+    toast(e.message || 'Build failed');
+    btn.disabled = false; btn.textContent = label;
+  }
+}
+
+function renderOrderCard(plan, kind){
+  return `
+    <div class="order-card">
+      ${plan.hot ? '<span style="align-self:flex-end;background:var(--cyan);color:#000;font-family:\'Orbitron\';font-size:9px;padding:3px 8px;border-radius:2px;">HOT</span>' : ''}
+      ${plan.icon ? `<div style="font-size:28px;">${plan.icon}</div>` : ''}
+      <div class="oc-name">${escapeHtml(plan.name)}</div>
+      <div class="oc-price">Rs. ${plan.price}<span> /${(kind==='website'||kind==='designer')?'once':'month'}</span></div>
+      <ul>${plan.features.map(f=>`<li>${escapeHtml(f)}</li>`).join('')}</ul>
+      <button class="btn" style="margin-top:6px;" onclick='openOrder(${JSON.stringify(kind)}, ${JSON.stringify(plan.name)}, ${plan.price})'>BUY</button>
+    </div>`;
+}
+
+function renderOrderPage(){
+  document.getElementById('vpnPremiumList').innerHTML = VPN_PREMIUM.map(p=>renderOrderCard(p,'vpn')).join('');
+  document.getElementById('vpnBypassList').innerHTML = VPN_BYPASS.map(p=>renderOrderCard(p,'vpn')).join('');
+  document.getElementById('websiteList').innerHTML = WEBSITE_PLANS.map(p=>renderOrderCard(p,'website')).join('');
+  document.getElementById('designerList').innerHTML = DESIGNER_PLANS.map(p=>renderOrderCard(p,'designer')).join('');
+  updateDomainPrice();
+}
+
+function switchOrderTab(tab){
+  document.querySelectorAll('.order-tab').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
+  document.querySelectorAll('.order-tab-panel').forEach(p=>p.classList.toggle('active', p.id==='orderTab-'+tab));
+}
+
+function updateDomainPrice(){
+  const years = parseInt(document.getElementById('domainYears').value, 10) || 1;
+  document.getElementById('domainPrice').textContent = years * 500;
+}
+function orderDomain(){
+  const years = parseInt(document.getElementById('domainYears').value, 10) || 1;
+  openOrder('domain', `Domain — ${years} Year${years>1?'s':''}`, years * 500);
+}
+
+let currentOrder = null;
+function openOrder(type, planLabel, price, planId){
+  if(!auth.currentUser){
+    toast('Please log in first — so you can track your order.');
+    go('auth');
+    return;
+  }
+  currentOrder = { type, planLabel, price, planId };
+  document.getElementById('orderSummary').textContent = `${planLabel} — Rs. ${price}`;
+  document.getElementById('orderForm').reset();
+  setMcFields(type === 'minecraft');
+  setDesignerFields(type === 'designer');
+  document.getElementById('orderModal').style.display = 'flex';
+}
+function closeOrder(){
+  document.getElementById('orderModal').style.display = 'none';
+}
+async function submitOrder(e){
+  e.preventDefault();
+  const user = auth.currentUser;
+  if(!user){ toast('Please log in first.'); go('auth'); return; }
+  const form = e.target;
+  const btn = form.querySelector('button[type="submit"]');
+  const originalLabel = btn.textContent;
+  btn.disabled = true; btn.textContent = 'SENDING...';
+  const fd = new FormData(form);
+  const firstName = fd.get('First Name') || '';
+  const lastName = fd.get('Last Name') || '';
+  const age = fd.get('Age') || '';
+  const whatsapp = fd.get('WhatsApp Number') || '';
+  const file = fd.get('attachment');
+  try{
+    let receiptImg = null;
+    if(file && file.size){ receiptImg = await compressImage(file); }
+    const mcData = (currentOrder && currentOrder.type === 'minecraft') ? {
+      planId: currentOrder.planId,
+      serverName: String(fd.get('Server Name') || '').trim(),
+      software: String(fd.get('Software') || ''),
+      version: String(fd.get('Version') || '')
+    } : null;
+    const designDetails = (currentOrder && currentOrder.type === 'designer') ? String(fd.get('Design Details') || '').trim() : null;
+
+    /* save it so it shows up under Your Orders (customer) and Orders (admin) */
+    await db.ref('orders').push({
+      uid: user.uid,
+      email: user.email,
+      name: `${firstName} ${lastName}`.trim(),
+      age, whatsapp,
+      category: currentOrder ? currentOrder.type : '',
+      plan: currentOrder ? currentOrder.planLabel : '',
+      price: currentOrder ? currentOrder.price : 0,
+      receiptImg,
+      mc: mcData,
+      description: designDetails,
+      status: 'pending',
+      createdAt: Date.now()
+    });
+    db.ref('stats/ordersCount').transaction(cur => (cur||0) + 1);
+
+    /* also email it immediately as a backup notification */
+    fd.append('_subject', 'New Order — ' + (currentOrder ? currentOrder.planLabel : ''));
+    fd.append('Plan', currentOrder ? currentOrder.planLabel : '');
+    fd.append('Price', currentOrder ? ('Rs. ' + currentOrder.price) : '');
+    fd.append('Category', currentOrder ? currentOrder.type : '');
+    fetch('https://formsubmit.co/ajax/dieghost371@gmail.com', {
+      method:'POST', headers:{'Accept':'application/json'}, body: fd
+    }).catch(()=>{});
+
+    toast('Order sent! Track it under Profile → Your Orders.');
+    closeOrder();
+  }catch(err){
+    toast(err.message || 'Failed to send — please try again.');
+  }
+  btn.disabled = false; btn.textContent = originalLabel;
+}
+
+/* ================= AUTH ================= */
+function toggleAuthMode(){
+  authMode = authMode==='login' ? 'signup' : 'login';
+  document.getElementById('authTitle').textContent = authMode==='login' ? 'Login' : 'Create Account';
+  document.getElementById('authSubmitBtn').textContent = authMode==='login' ? 'Login' : 'Sign Up';
+  document.getElementById('authSwitchNote').innerHTML = authMode==='login'
+    ? 'No account? <a onclick="toggleAuthMode()">Create one</a>'
+    : 'Already have an account? <a onclick="toggleAuthMode()">Login</a>';
+  document.getElementById('authMsg').textContent='';
+}
+
+function emailAuth(){
+  const email = document.getElementById('authEmail').value.trim();
+  const pass = document.getElementById('authPass').value;
+  const msgEl = document.getElementById('authMsg');
+  msgEl.textContent='';
+  if(!email || !pass){ msgEl.textContent='Enter email and password.'; return; }
+
+  const action = authMode==='login'
+    ? auth.signInWithEmailAndPassword(email, pass)
+    : auth.createUserWithEmailAndPassword(email, pass);
+
+  action.then((cred)=>{
+    if(authMode==='signup'){
+      return saveUserRecord(cred.user);
+    }
+  }).then(()=>{
+    toast(authMode==='login' ? 'Welcome back!' : 'Account created!');
+    go(email.toLowerCase()===ADMIN_EMAIL ? 'admin' : 'profile');
+  }).catch(err=>{
+    msgEl.textContent = friendlyAuthError(err);
+  });
+}
+
+function googleLogin(){
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider).then(cred=>{
+    return saveUserRecord(cred.user).then(()=>cred.user);
+  }).then((user)=>{
+    toast('Welcome!');
+    go(user.email && user.email.toLowerCase()===ADMIN_EMAIL ? 'admin' : 'profile');
+  }).catch(err=>{
+    document.getElementById('authMsg').textContent = friendlyAuthError(err);
+  });
+}
+
+function saveUserRecord(user){
+  return db.ref('users/'+user.uid).set({
+    name: user.displayName || user.email.split('@')[0],
+    email: user.email,
+    photoURL: user.photoURL || "",
+    updatedAt: Date.now()
+  });
+}
+
+function friendlyAuthError(err){
+  const map = {
+    'auth/email-already-in-use':'That email already has an account — try logging in.',
+    'auth/invalid-email':'That email looks invalid.',
+    'auth/weak-password':'Password should be at least 6 characters.',
+    'auth/user-not-found':'No account found with that email.',
+    'auth/wrong-password':'Wrong password.',
+    'auth/invalid-credential':'Incorrect email or password.',
+    'auth/popup-closed-by-user':'Google sign-in was closed.',
+    'auth/popup-blocked':'Popup was blocked — allow popups for this site and try again.',
+    'auth/unauthorized-domain':'This website domain is not authorized in Firebase (Authentication > Settings > Authorized domains).',
+    'auth/operation-not-allowed':'This login method is not enabled in Firebase (Authentication > Sign-in method).'
+  };
+  return map[err.code] || err.message;
+}
+
+function logout(){
+  auth.signOut().then(()=>{ toast('Logged out.'); go('home'); });
+}
+
+/* ================= AUTH STATE ================= */
+auth.onAuthStateChanged(user=>{
+  const navProfile = document.getElementById('navProfileBtn');
+  const navAdmin = document.getElementById('navAdminBtn');
+  const navAuth = document.getElementById('navAuthBtn');
+  updateHomeUserBadge(user);
+  if(user){
+    try{ db.ref('users/'+user.uid).update({ name:user.displayName||(user.email?user.email.split('@')[0]:'User'), email:user.email||'', photoURL:user.photoURL||'', updatedAt:Date.now() }).catch(()=>{}); }catch(e){}
+    navProfile.style.display='inline-block';
+    navAuth.textContent='Logout';
+    navAuth.onclick = logout;
+    navAuth.dataset.p='';
+    if(isAdminUser(user)){
+      navAdmin.style.display='inline-block';
+    } else {
+      navAdmin.style.display='none';
+    }
+  } else {
+    navProfile.style.display='none';
+    navAdmin.style.display='none';
+    navAuth.textContent='Login';
+    navAuth.onclick = ()=>go('auth');
+    navAuth.dataset.p='auth';
+  }
+  renderProfile();
+  renderAdmin();
+});
+
+function updateHomeUserBadge(user){
+  const badge = document.getElementById('homeUserBadge');
+  const avatar = document.getElementById('homeUserAvatar');
+  const nameEl = document.getElementById('homeUserName');
+  if(!badge || !avatar || !nameEl) return;
+
+  if(!user){
+    badge.classList.remove('show');
+    return;
+  }
+
+  const name = user.displayName || (user.email ? user.email.split('@')[0] : 'User');
+  nameEl.textContent = name;
+
+  if(user.photoURL){
+    avatar.className = 'hub-avatar';
+    avatar.src = user.photoURL;
+    avatar.alt = name;
+    avatar.onerror = ()=>{
+      avatar.onerror = null;
+      avatar.removeAttribute('src');
+      avatar.className = 'hub-avatar hub-avatar-fallback';
+      avatar.textContent = name.charAt(0).toUpperCase();
+    };
+  }else{
+    avatar.removeAttribute('src');
+    avatar.className = 'hub-avatar hub-avatar-fallback';
+    avatar.textContent = name.charAt(0).toUpperCase();
+  }
+
+  // Show it only while the Home page is active.
+  const home = document.getElementById('page-home');
+  badge.classList.toggle('show', !!home && home.classList.contains('active'));
+}
+
+/* ================= PROFILE ================= */
+function renderProfile(){
+  const body = document.getElementById('profileBody');
+  const user = auth.currentUser;
+  if(!user){
+    body.innerHTML = '<div class="lock-note">You need to be logged in to see your profile.<br><br><button class="btn" onclick="go(\'auth\')">Login / Sign Up</button></div>';
+    return;
+  }
+  const initials = (user.displayName || user.email || '?').charAt(0).toUpperCase();
+  const isAdmin = isAdminUser(user);
+  body.innerHTML = `
+    <div class="profile-head">
+      ${user.photoURL ? `<img src="${escapeHtml(user.photoURL)}">` : `<div class="avatar-fallback">${initials}</div>`}
+      <div>
+        <h2>${escapeHtml(user.displayName || 'GHOST Member')}</h2>
+        <p>${escapeHtml(user.email)}</p>
+        ${isAdmin ? '<span class="admin-chip">ADMIN</span>' : ''}
+      </div>
+    </div>
+    <div class="card" style="max-width:480px;">
+      <div class="kv"><span>Email</span><span>${escapeHtml(user.email)}</span></div>
+      <div class="kv"><span>Signed in with</span><span>${user.providerData[0] ? user.providerData[0].providerId : '—'}</span></div>
+      <div class="kv"><span>Account ID</span><span style="font-size:11px;">${user.uid.slice(0,12)}...</span></div>
+    </div>
+    <div style="margin-top:22px;display:flex;gap:10px;">
+      ${isAdmin ? '<button class="btn" onclick="go(\'admin\')">Open Admin Panel</button>' : ''}
+      <button class="btn ghost" onclick="logout()">Logout</button>
+    </div>
+    <div class="section-title" style="font-size:18px;margin-top:40px;">Your Orders</div>
+    <div id="myOrders"><p class="empty-note">Loading...</p></div>
+  `;
+  loadMyOrders(user.uid);
+}
+
+/* ================= ADMIN ================= */
+function renderAdmin(){
+  const guard = document.getElementById('adminGuard');
+  const body = document.getElementById('adminBody');
+  const user = auth.currentUser;
+  if(!isAdminUser(user)){
+    guard.innerHTML = '<div class="lock-note">Admin access only.<br><br><button class="btn" onclick="go(\'auth\')">Login</button></div>';
+    body.style.display='none';
+    if(adminRef){ adminRef.off('value'); adminRef=null; }
+    if(msgsRef){ msgsRef.off('value'); msgsRef=null; }
+    if(ordersRef){ ordersRef.off('value'); ordersRef=null; }
+    if(customersRef){ customersRef.off('value'); customersRef=null; }
+    return;
+  }
+  guard.innerHTML='';
+  body.style.display='block';
+  loadAdminList();
+  loadAdminMessages();
+  loadAdminOrders();
+}
+
+function imgKeyOf(url){ return (url||'').indexOf('img:')===0 ? url.slice(4) : null; }
+
+/* shrink a photo in the browser so it is small enough to host in the database */
+function designFileToDataURL(file){
+  const isPng = /png/i.test(file.type) || /\.png$/i.test(file.name||'');
+  if(!isPng) return compressImage(file);   // jpg/other: reuse the existing compressor
+  return new Promise((resolve,reject)=>{
+    const reader = new FileReader();
+    reader.onerror = ()=>reject(new Error('Could not read that file.'));
+    reader.onload = ()=>{
+      const img = new Image();
+      img.onerror = ()=>reject(new Error('That file is not a valid image.'));
+      img.onload = ()=>{
+        let side = 1400;
+        for(let i=0;i<6;i++){
+          const scale = Math.min(1, side/Math.max(img.width,img.height));
+          const c = document.createElement('canvas');
+          c.width = Math.max(1,Math.round(img.width*scale));
+          c.height = Math.max(1,Math.round(img.height*scale));
+          const ctx = c.getContext('2d');
+          ctx.clearRect(0,0,c.width,c.height);       // keeps transparent background (logos)
+          ctx.drawImage(img,0,0,c.width,c.height);
+          const out = c.toDataURL('image/png');
+          if(out.length < 700000) return resolve(out);
+          side *= 0.8;
+        }
+        reject(new Error('That PNG is too large — try a smaller/simpler file.'));
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+function compressImage(file){
+  return new Promise((resolve,reject)=>{
+    const reader = new FileReader();
+    reader.onerror = ()=>reject(new Error('Could not read that file.'));
+    reader.onload = ()=>{
+      const img = new Image();
+      img.onerror = ()=>reject(new Error('That file is not a valid image.'));
+      img.onload = ()=>{
+        let side = 1000, q = 0.8;
+        for(let i=0;i<7;i++){
+          const scale = Math.min(1, side/Math.max(img.width,img.height));
+          const c = document.createElement('canvas');
+          c.width = Math.max(1,Math.round(img.width*scale));
+          c.height = Math.max(1,Math.round(img.height*scale));
+          const ctx = c.getContext('2d');
+          ctx.fillStyle = '#fff'; ctx.fillRect(0,0,c.width,c.height);
+          ctx.drawImage(img,0,0,c.width,c.height);
+          const out = c.toDataURL('image/jpeg', q);
+          if(out.length < 380000) return resolve(out);
+          side *= 0.8; q = Math.max(0.5, q-0.06);
+        }
+        reject(new Error('Photo is too large — pick a smaller one.'));
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function pickPhoto(input){
+  const msgEl = document.getElementById('adminMsg');
+  msgEl.textContent = '';
+  const file = input.files && input.files[0];
+  if(!file) return;
+  msgEl.style.color = 'var(--ink-dim)';
+  msgEl.textContent = 'Preparing photo...';
+  compressImage(file).then(data=>{
+    pendingImage = data;
+    const pv = document.getElementById('aPreview');
+    pv.src = data; pv.style.display = 'block';
+    document.getElementById('aClearPhoto').style.display = 'inline-block';
+    document.getElementById('aType').value = 'image';
+    msgEl.textContent = '';
+    msgEl.style.color = '';
+  }).catch(err=>{
+    msgEl.style.color = '';
+    msgEl.textContent = err.message;
+    clearPhoto();
+  });
+}
+
+function clearPhoto(){
+  pendingImage = null;
+  document.getElementById('aFile').value = '';
+  document.getElementById('aPreview').style.display = 'none';
+  document.getElementById('aPreview').removeAttribute('src');
+  document.getElementById('aClearPhoto').style.display = 'none';
+}
+
+function postUpdate(){
+  const title = document.getElementById('aTitle').value.trim();
+  const desc = document.getElementById('aDesc').value.trim();
+  let type = document.getElementById('aType').value;
+  let url = document.getElementById('aUrl').value.trim();
+  const msgEl = document.getElementById('adminMsg');
+  const btn = document.getElementById('aSubmitBtn');
+  msgEl.style.color = ''; msgEl.textContent='';
+  if(!title){ msgEl.textContent='Title is required.'; return; }
+  if(type==='none' && !pendingImage) url = '';
+
+  const oldKey = editingId ? imgKeyOf(editingOldUrl) : null;
+  btn.disabled = true;
+
+  let step = Promise.resolve();
+  if(pendingImage){
+    // host the photo automatically; the post keeps only a short reference to it
+    step = db.ref('images').push(pendingImage).then(ref=>{ url = 'img:'+ref.key; type = 'image'; });
+  }
+
+  step.then(()=>{
+    const payload = { title, desc, mediaType: type, mediaUrl: url, author: auth.currentUser.email };
+    return editingId
+      ? db.ref('updates/'+editingId).update({...payload, updatedAt: Date.now()})
+      : db.ref('updates').push({...payload, createdAt: Date.now()});
+  }).then(()=>{
+    const newKey = imgKeyOf(url);
+    if(oldKey && oldKey!==newKey) db.ref('images/'+oldKey).remove().catch(()=>{});
+    toast(editingId ? 'Update saved!' : 'Update posted!');
+    cancelEdit();
+  }).catch(err=>{
+    msgEl.textContent = /permission/i.test(err.message||'')
+      ? 'Permission denied — log in with Google using '+ADMIN_EMAIL+' and check your database rules.'
+      : (err.message || 'Something went wrong.');
+  }).then(()=>{ btn.disabled = false; });
+}
+
+function editUpdate(id){
+  const u = adminItems[id];
+  if(!u) return;
+  editingId = id;
+  editingOldUrl = u.mediaUrl || '';
+  clearPhoto();
+  document.getElementById('aTitle').value = u.title || '';
+  document.getElementById('aDesc').value = u.desc || '';
+  document.getElementById('aType').value = u.mediaType || 'none';
+  document.getElementById('aUrl').value = u.mediaUrl || '';
+  document.getElementById('adminFormTitle').textContent = 'Editing Announcement';
+  document.getElementById('aSubmitBtn').textContent = 'Save Changes';
+  document.getElementById('aCancelBtn').style.display = 'inline-block';
+  document.getElementById('aTitle').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function cancelEdit(){
+  editingId = null;
+  editingOldUrl = '';
+  clearPhoto();
+  document.getElementById('aTitle').value='';
+  document.getElementById('aDesc').value='';
+  document.getElementById('aUrl').value='';
+  document.getElementById('aType').value='none';
+  document.getElementById('adminFormTitle').textContent = 'New Announcement';
+  document.getElementById('aSubmitBtn').textContent = 'Post Update';
+  document.getElementById('aCancelBtn').style.display = 'none';
+  document.getElementById('adminMsg').textContent = '';
+}
+
+function deleteUpdate(id){
+  if(!confirm('Delete this post?')) return;
+  const u = adminItems[id];
+  const key = u ? imgKeyOf(u.mediaUrl) : null;
+  db.ref('updates/'+id).remove().then(()=>{
+    if(key) db.ref('images/'+key).remove().catch(()=>{});
+    toast('Deleted.');
+    if(editingId===id) cancelEdit();
+  }).catch(err=>{ toast(err.message); });
+}
+
+function loadAdminList(){
+  const list = document.getElementById('adminList');
+  if(adminRef) adminRef.off('value');
+  adminRef = db.ref('updates').orderByChild('createdAt');
+  adminRef.on('value', snap=>{
+    const items = [];
+    adminItems = {};
+    snap.forEach(child=>{ const it = {id:child.key, ...child.val()}; items.push(it); adminItems[it.id] = it; });
+    items.reverse();
+    if(items.length===0){
+      list.innerHTML = '<div class="empty-note">No posts yet.</div>';
+      return;
+    }
+    list.innerHTML = items.map(u=>`
+      <div class="update">
+        <h3>${escapeHtml(u.title)}</h3>
+        <div class="meta">${new Date(u.createdAt).toLocaleString()}</div>
+        <p>${escapeHtml(u.desc||'')}</p>
+        ${renderMedia(u)}
+        <div class="admin-row">
+          <button onclick="editUpdate('${u.id}')" style="border-color:var(--cyan);color:var(--cyan);">Edit</button>
+          <button onclick="deleteUpdate('${u.id}')">Delete</button>
+        </div>
+      </div>
+    `).join('');
+    hydrateImages(list);
+  }, err=>{
+    list.innerHTML = '<div class="empty-note">Cannot load posts: '+escapeHtml(err.message)+'</div>';
+  });
+}
+
+function loadAdminMessages(){
+  const box = document.getElementById('adminMsgs');
+  if(msgsRef) msgsRef.off('value');
+  msgsRef = db.ref('messages').orderByChild('createdAt');
+  msgsRef.on('value', snap=>{
+    const items = [];
+    snap.forEach(c=>{ items.push({id:c.key, ...c.val()}); });
+    items.reverse();
+    if(items.length===0){
+      box.innerHTML = '<div class="empty-note">No messages yet.</div>';
+      return;
+    }
+    box.innerHTML = items.map(m=>`
+      <div class="update">
+        <h3>${escapeHtml(m.name||'')}</h3>
+        <div class="meta">${escapeHtml(m.email||'')} · ${new Date(m.createdAt).toLocaleString()}</div>
+        <p>${escapeHtml(m.msg||'')}</p>
+        <div class="admin-row"><button onclick="deleteMessage('${m.id}')">Delete</button></div>
+      </div>
+    `).join('');
+  }, err=>{
+    box.innerHTML = '<div class="empty-note">Cannot load messages: '+escapeHtml(err.message)+'</div>';
+  });
+}
+
+function deleteMessage(id){
+  if(!confirm('Delete this message?')) return;
+  db.ref('messages/'+id).remove().then(()=>toast('Deleted.')).catch(err=>toast(err.message));
+}
+
+/* ================= ORDER TRACKING (Your Orders / Admin Orders) ================= */
+const ORDER_STATUS_LABEL = { pending:'Pending', confirmed:'Confirmed', completed:'Completed', cancelled:'Cancelled' };
+const ORDER_STATUS_COLOR = { pending:'#ffb020', confirmed:'#00e5ff', completed:'#39ff8f', cancelled:'#ff4d6d' };
+
+/* ---- per-CUSTOMER chat (one shared inbox per uid, covers all their orders) ---- */
+function renderCustomerMsg(m, isAdmin, customerName){
+  const who = m.from==='admin' ? 'GHOST EDITZ' : (isAdmin?escapeHtml(customerName||'Customer'):'You');
+  const color = m.from==='admin' ? 'var(--cyan)' : 'var(--ink)';
+  let body = m.text ? `${escapeHtml(m.text)}` : '';
+  if(m.file){
+    const isImg = /^data:image\//.test(m.file);
+    body += `<div style="margin-top:6px;">
+      ${isImg ? `<img src="${m.file}" alt="" style="max-width:180px;max-height:180px;display:block;border:1px solid var(--border);margin-bottom:6px;background:repeating-conic-gradient(#2a2a2a 0% 25%, #1a1a1a 0% 50%) 50%/16px 16px;">` : ''}
+      <a class="btn" style="padding:6px 12px;font-size:11px;display:inline-block;" href="${m.file}" download="${escapeHtml(m.fileName||'design-file')}">⬇ Download ${escapeHtml(m.fileName||'file')}</a>
+    </div>`;
+  }
+  return `<p style="font-size:13px;padding:3px 0;"><b style="color:${color};">${who}:</b> ${body}</p>`;
+}
+function renderCustomerThread(uid, isAdmin, customerName, msgsObj){
+  const msgs = msgsObj ? Object.values(msgsObj).sort((a,b)=>a.createdAt-b.createdAt) : [];
+  const inputId = (isAdmin ? 'custReply-' : 'myCustReply-') + uid;
+  const fileInputId = 'custFile-' + uid;
+  return `
+    <div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);">
+      <div style="font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:1.5px;color:var(--ink-dim);margin-bottom:8px;">💬 ${isAdmin ? ('INBOX — '+escapeHtml(customerName||'Customer')) : 'YOUR INBOX'}</div>
+      ${msgs.length===0 ? '<p class="empty-note" style="padding:4px 0;">No messages yet.</p>' :
+        msgs.map(m=>renderCustomerMsg(m, isAdmin, customerName)).join('')}
+      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+        <input class="order-input" id="${inputId}" style="flex:1;min-width:120px;" placeholder="Type a message..."
+          onkeydown="if(event.key==='Enter'){ event.preventDefault(); sendCustomerMessage('${uid}','${isAdmin?'admin':'customer'}'); }">
+        <button class="btn" style="white-space:nowrap;padding:10px 16px;" onclick="sendCustomerMessage('${uid}','${isAdmin?'admin':'customer'}')">Send</button>
+      </div>
+      ${isAdmin ? `
+      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center;">
+        <input type="file" accept="image/*" id="${fileInputId}" style="display:none;" onchange="sendCustomerFile('${uid}', this)">
+        <button class="btn" style="padding:6px 12px;font-size:11px;" onclick="document.getElementById('${fileInputId}').click()">📎 Upload finished file</button>
+      </div>` : ''}
+    </div>`;
+}
+function sendCustomerFile(uid, inputEl){
+  const file = inputEl.files && inputEl.files[0];
+  if(!file) return;
+  designFileToDataURL(file).then(dataUrl=>{
+    return db.ref('customers/'+uid+'/messages').push({ from:'admin', text:'', file:dataUrl, fileName:file.name, createdAt: Date.now() });
+  }).then(()=>{
+    inputEl.value = '';
+    toast('File sent ✔ — customer can download it from their inbox.');
+  }).catch(err=>toast(err.message || 'Upload failed'));
+}
+function sendCustomerMessage(uid, from){
+  const inputId = (from==='admin' ? 'custReply-' : 'myCustReply-') + uid;
+  const input = document.getElementById(inputId);
+  if(!input) return;
+  const text = input.value.trim();
+  if(!text) return;
+  db.ref('customers/'+uid+'/messages').push({from, text, createdAt: Date.now()})
+    .then(()=>{ input.value = ''; })
+    .catch(err=>toast(err.message));
+}
+
+/* ---- individual order card (status + details only — chat now lives at the customer level) ---- */
+function renderOrderCardFull(o, isAdmin){
+  const status = o.status || 'pending';
+  return `
+    <div class="update" style="margin-bottom:10px;">
+      <h3>${escapeHtml(o.plan||'')} — Rs. ${o.price||0}</h3>
+      <div class="meta">${new Date(o.createdAt).toLocaleString()}</div>
+      ${mcOrderBlock(o, isAdmin)}
+      ${o.description ? `<div style="margin-top:10px;padding:10px;background:rgba(255,255,255,0.04);border:1px solid var(--border);font-size:13px;color:var(--ink);white-space:pre-wrap;">📝 ${escapeHtml(o.description)}</div>` : ''}
+      ${isAdmin && o.receiptImg ? `<img src="${o.receiptImg}" alt="" style="max-width:220px;margin-top:10px;border:1px solid var(--border);display:block;">` : ''}
+      <div style="margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        ${isAdmin ? `
+          <label style="font-size:12px;color:var(--ink-dim);">Status</label>
+          <select onchange="updateOrderStatus('${o.id}', this.value)" style="background:rgba(255,255,255,0.05);color:var(--ink);border:1px solid var(--border);padding:6px;border-radius:2px;">
+            ${Object.keys(ORDER_STATUS_LABEL).map(s=>`<option value="${s}" ${status===s?'selected':''}>${ORDER_STATUS_LABEL[s]}</option>`).join('')}
+          </select>
+          <button class="btn red" style="padding:6px 12px;font-size:11px;margin-left:auto;" onclick="deleteOrder('${o.id}')">Delete</button>
+        ` : `
+          <span style="font-family:'Orbitron';font-size:11px;padding:4px 10px;border:1px solid ${ORDER_STATUS_COLOR[status]||'#888'};color:${ORDER_STATUS_COLOR[status]||'#888'};border-radius:2px;">${ORDER_STATUS_LABEL[status]||status}</span>
+        `}
+      </div>
+    </div>`;
+}
+
+/* ---- group all of one customer's orders under one card, with one shared inbox ---- */
+function renderCustomerGroup(uid, orders, msgsObj){
+  orders = orders.slice().sort((a,b)=>b.createdAt-a.createdAt);
+  const latest = orders[0];
+  return `
+    <div class="update" style="margin-bottom:26px;border-left:2px solid var(--cyan);">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px;">
+        <h3 style="margin:0;">${escapeHtml(latest.name||'Customer')}</h3>
+        <span style="font-size:12px;color:var(--ink-dim);">${escapeHtml(latest.whatsapp||'')}${latest.age?(' · Age '+escapeHtml(String(latest.age))):''}</span>
+      </div>
+      <div style="font-size:11px;color:var(--ink-dim);margin-top:2px;">${orders.length} order${orders.length>1?'s':''}</div>
+      <div style="margin-top:12px;">
+        ${orders.map(o=>renderOrderCardFull(o, true)).join('')}
+      </div>
+      ${renderCustomerThread(uid, true, latest.name, msgsObj)}
+    </div>`;
+}
+
+function updateOrderStatus(orderId, status){
+  db.ref('orders/'+orderId+'/status').set(status).then(()=>toast('Status updated.')).catch(err=>toast(err.message));
+}
+
+function deleteOrder(orderId){
+  if(!confirm('Delete this order?')) return;
+  db.ref('orders/'+orderId).remove().then(()=>toast('Deleted.')).catch(err=>toast(err.message));
+}
+
+function renderAdminOrders(){
+  const box = document.getElementById('adminOrders');
+  if(!box) return;
+  const orders = _adminOrdersSnap;
+  const customers = _adminCustomersSnap || {};
+  if(orders.length===0){ box.innerHTML = '<div class="empty-note">No orders yet.</div>'; return; }
+  const groups = {};
+  orders.forEach(o=>{ const key = o.uid || 'unknown'; (groups[key] = groups[key]||[]).push(o); });
+  const uids = Object.keys(groups).sort((a,b)=>{
+    const la = Math.max(...groups[a].map(o=>o.createdAt||0));
+    const lb = Math.max(...groups[b].map(o=>o.createdAt||0));
+    return lb - la;
+  });
+  box.innerHTML = uids.map(uid=>renderCustomerGroup(uid, groups[uid], customers[uid] && customers[uid].messages)).join('');
+}
+
+function loadAdminOrders(){
+  const box = document.getElementById('adminOrders');
+  if(box) box.innerHTML = '<div class="empty-note">Loading...</div>';
+  if(ordersRef) ordersRef.off('value');
+  ordersRef = db.ref('orders').orderByChild('createdAt');
+  ordersRef.on('value', snap=>{
+    const items = [];
+    snap.forEach(c=>{ items.push({id:c.key, ...c.val()}); });
+    _adminOrdersSnap = items;
+    renderAdminOrders();
+  }, err=>{
+    if(box) box.innerHTML = '<div class="empty-note">Cannot load orders: '+escapeHtml(err.message)+'</div>';
+  });
+  if(customersRef) customersRef.off('value');
+  customersRef = db.ref('customers');
+  customersRef.on('value', snap=>{
+    _adminCustomersSnap = snap.val() || {};
+    renderAdminOrders();
+  });
+}
+
+function loadMyOrders(uid){
+  const box = document.getElementById('myOrders');
+  if(!box) return;
+  let latestOrders = [];
+  let latestMsgs = null;
+  function render(){
+    const chatHtml = renderCustomerThread(uid, false, null, latestMsgs);
+    const ordersHtml = latestOrders.length===0
+      ? '<p class="empty-note">No orders yet — place one from the Orders page.</p>'
+      : latestOrders.map(o=>renderOrderCardFull(o, false)).join('');
+    box.innerHTML = ordersHtml + chatHtml;
+  }
+  if(myOrdersRef) myOrdersRef.off('value');
+  myOrdersRef = db.ref('orders').orderByChild('uid').equalTo(uid);
+  myOrdersRef.on('value', snap=>{
+    const items = [];
+    snap.forEach(c=>{ items.push({id:c.key, ...c.val()}); });
+    items.sort((a,b)=>b.createdAt-a.createdAt);
+    latestOrders = items;
+    render();
+  }, err=>{
+    box.innerHTML = '<p class="empty-note">Cannot load orders: '+escapeHtml(err.message)+'</p>';
+  });
+  if(myCustomerMsgsRef) myCustomerMsgsRef.off('value');
+  myCustomerMsgsRef = db.ref('customers/'+uid+'/messages');
+  myCustomerMsgsRef.on('value', snap=>{
+    latestMsgs = snap.val();
+    render();
+  });
+}
+
+/* ================= HOME STATS (site visits / orders placed) ================= */
+function initHomeStats(){
+  db.ref('stats/visits').on('value', snap=>{
+    const el = document.getElementById('statVisits');
+    if(el) el.textContent = snap.val() || 0;
+  });
+  db.ref('stats/ordersCount').on('value', snap=>{
+    const el = document.getElementById('statOrders');
+    if(el) el.textContent = snap.val() || 0;
+  });
+  if(!sessionStorage.getItem('ghost_visited')){
+    sessionStorage.setItem('ghost_visited', '1');
+    db.ref('stats/visits').transaction(cur => (cur||0) + 1);
+  }
+}
+
+/* ================= MEMBERS STRIP (logged-in profiles) ================= */
+function escHtml(t){ return String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function initMembers(){
+  const wrap = document.getElementById('membersWrap');
+  const vp = document.getElementById('membersViewport');
+  const track = document.getElementById('membersTrack');
+  const countEl = document.getElementById('membersCount');
+  const statEl = document.getElementById('statMembers');
+  if(!wrap || !track) return;
+  db.ref('users').limitToLast(60).on('value', snap=>{
+    const val = snap.val() || {};
+    const list = Object.keys(val).map(uid=>({uid, ...val[uid]}))
+      .sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
+    if(statEl) statEl.textContent = list.length;
+    if(!list.length){ wrap.style.display='none'; return; }
+    wrap.style.display='block';
+    if(countEl) countEl.textContent = list.length;
+    const meUid = auth.currentUser && auth.currentUser.uid;
+    const card = u=>{
+      const name = u.name || 'User';
+      const av = u.photoURL
+        ? `<img src="${escHtml(u.photoURL)}" alt="" referrerpolicy="no-referrer" onerror="this.outerHTML='<div class=&quot;m-fallback&quot;>${escHtml(name.charAt(0).toUpperCase())}</div>'">`
+        : `<div class="m-fallback">${escHtml(name.charAt(0).toUpperCase())}</div>`;
+      return `<div class="member${u.uid===meUid?' me':''}">${av}<span class="m-name">${escHtml(name)}</span></div>`;
+    };
+    const cards = list.map(card).join('');
+    if(list.length >= 5){
+      // side-scrolling loop: content twice so the -50% shift is seamless
+      track.innerHTML = cards + cards;
+      vp.className = 'members-viewport marquee';
+      vp.style.setProperty('--mdur', Math.max(18, list.length*4)+'s');
+    } else {
+      track.innerHTML = cards;
+      vp.className = 'members-viewport static';
+    }
+  }, ()=>{ wrap.style.display='none'; });
+}
+
+/* ================= UPDATES (public feed) ================= */
+function renderMedia(u){
+  if(!u.mediaUrl || u.mediaType==='none') return '';
+  const safe = escapeAttr(u.mediaUrl);
+  if(u.mediaType==='image'){
+    const key = imgKeyOf(u.mediaUrl);
+    if(key) return `<div class="media"><img data-imgkey="${escapeAttr(key)}" alt=""></div>`;
+    return `<div class="media"><img src="${safe}" alt="" loading="lazy" onerror="this.style.display='none'"></div>`;
+  }
+  if(u.mediaType==='video'){
+    return `<div class="media"><video src="${safe}" controls></video></div>`;
+  }
+  if(u.mediaType==='youtube'){
+    const id = extractYouTubeId(u.mediaUrl);
+    if(id){
+      return `<div class="media"><iframe src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe></div>`;
+    }
+    return `<div class="media"><a href="${safe}" target="_blank" rel="noopener">${safe}</a></div>`;
+  }
+  return `<div class="media"><a href="${safe}" target="_blank" rel="noopener">${safe}</a></div>`;
+}
+
+/* photos uploaded from the admin panel are stored in the database; load them on demand */
+function hydrateImages(root){
+  root.querySelectorAll('img[data-imgkey]').forEach(el=>{
+    const key = el.dataset.imgkey;
+    if(imgCache[key]){ el.src = imgCache[key]; return; }
+    db.ref('images/'+key).once('value').then(snap=>{
+      const v = snap.val();
+      if(v){ imgCache[key] = v; el.src = v; } else { el.style.display = 'none'; }
+    }).catch(()=>{ el.style.display = 'none'; });
+  });
+}
+
+function extractYouTubeId(url){
+  const m = url.match(/(?:youtu\.be\/|v=|embed\/)([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
+
+function loadUpdatesFeed(){
+  const list = document.getElementById('updatesList');
+  db.ref('updates').orderByChild('createdAt').on('value', snap=>{
+    const items = [];
+    snap.forEach(child=>{ items.push({id:child.key, ...child.val()}); });
+    items.reverse();
+    document.getElementById('statCount').textContent = items.length;
+    try{ checkUpdateChanges(items); }catch(e){ console.error(e); }
+    if(items.length===0){
+      list.innerHTML = '<div class="empty-note">No updates yet — check back soon.</div>';
+      return;
+    }
+    list.innerHTML = items.map(u=>`
+      <div class="update">
+        <h3>${escapeHtml(u.title)}</h3>
+        <div class="meta">${new Date(u.createdAt).toLocaleDateString()}</div>
+        <p>${escapeHtml(u.desc||'')}</p>
+        ${renderMedia(u)}
+      </div>
+    `).join('');
+    hydrateImages(list);
+  }, err=>{
+    list.innerHTML = '<div class="empty-note">Could not load updates right now.</div>';
+    console.error(err);
+  });
+}
+loadUpdatesFeed();
+
+/* ================= CONTACT ================= */
+function sendContact(){
+  const name = document.getElementById('cName').value.trim();
+  const email = document.getElementById('cEmail').value.trim();
+  const msg = document.getElementById('cMsg').value.trim();
+  const out = document.getElementById('contactMsg');
+  if(!name || !email || !msg){ out.textContent='Fill in all fields.'; out.style.color='var(--blood)'; return; }
+  db.ref('messages').push({name, email, msg, createdAt: Date.now()}).then(()=>{
+    out.style.color = 'var(--cyan)';
+    out.textContent='Message sent — thanks!';
+    document.getElementById('cName').value='';
+    document.getElementById('cEmail').value='';
+    document.getElementById('cMsg').value='';
+  }).catch(err=>{ out.style.color='var(--blood)'; out.textContent=err.message; });
+}
+
+/* ================= UPDATE NOTIFICATIONS ================= */
+/* Tells visitors when you post a new update or edit one:
+   - red badge on the Updates tab + title counter until they open Updates
+   - pop-up card inside the site the moment it happens
+   - real phone/PC notification (if they tapped "Enable notifications") */
+const SIG_KEY = 'ge_update_sigs';
+let swReg = null;
+let knownSigs = null;      // id -> signature, as of the last snapshot
+let currentSigs = {};      // latest signatures from the database
+let unseenCount = 0;
+let noticeTimer = null;
+const BASE_TITLE = document.title;
+
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').then(r=>{ swReg = r; }).catch(()=>{});
+  navigator.serviceWorker.addEventListener('message', e=>{ if(e.data && e.data.go) go(e.data.go); });
+}
+
+function updSig(u){ return (u.createdAt||0)+'|'+(u.updatedAt||0)+'|'+(u.title||''); }
+function loadSavedSigs(){
+  try{ const v = localStorage.getItem(SIG_KEY); return v ? JSON.parse(v) : null; }catch(e){ return null; }
+}
+function saveSigs(o){ try{ localStorage.setItem(SIG_KEY, JSON.stringify(o)); }catch(e){} }
+
+function setBadge(n){
+  unseenCount = n;
+  const b = document.getElementById('updBadge');
+  if(b){ b.textContent = n; b.style.display = n>0 ? 'inline-block' : 'none'; }
+  document.title = n>0 ? '('+n+') '+BASE_TITLE : BASE_TITLE;
+}
+
+function markUpdatesSeen(){
+  if(knownSigs === null && Object.keys(currentSigs).length===0) return; // feed not loaded yet
+  saveSigs(currentSigs);
+  knownSigs = Object.assign({}, currentSigs);
+  setBadge(0);
+  const n = document.getElementById('notice'); if(n) n.classList.remove('show');
+}
+
+function showNotice(title, body){
+  document.getElementById('noticeTitle').textContent = title;
+  document.getElementById('noticeBody').textContent = body;
+  const n = document.getElementById('notice');
+  n.classList.add('show');
+  clearTimeout(noticeTimer);
+  noticeTimer = setTimeout(()=>n.classList.remove('show'), 9000);
+}
+function openNotice(){ go('updates'); }
+
+async function systemNotify(title, body){
+  if(!('Notification' in window) || Notification.permission!=='granted') return;
+  try{
+    const reg = swReg || (navigator.serviceWorker && await navigator.serviceWorker.getRegistration());
+    if(reg && reg.showNotification){
+      await reg.showNotification(title, { body, tag:'ge-update', renotify:true });
+      return;
+    }
+  }catch(e){}
+  try{ new Notification(title, { body }); }catch(e){}
+}
+
+function announce(title, body){
+  showNotice(title, body);
+  systemNotify(title, body);
+}
+
+function checkUpdateChanges(items){
+  currentSigs = {};
+  items.forEach(u=>{ currentSigs[u.id] = updSig(u); });
+  const onUpdatesPage = document.getElementById('page-updates').classList.contains('active');
+
+  // first snapshot after page load: compare with what this visitor saw last time
+  if(knownSigs === null){
+    const saved = loadSavedSigs();
+    if(saved === null){ saveSigs(currentSigs); knownSigs = Object.assign({}, currentSigs); return; } // brand-new visitor
+    knownSigs = saved;
+    let fresh = 0, first = null;
+    items.forEach(u=>{ if(knownSigs[u.id] !== currentSigs[u.id]){ fresh++; if(!first) first = u; } });
+    if(fresh>0){
+      if(onUpdatesPage){ markUpdatesSeen(); return; }
+      setBadge(fresh);
+      showNotice(fresh===1 ? '🔔 New update' : '🔔 '+fresh+' new updates', fresh===1 ? first.title : 'Tap to see what\'s new');
+    }
+    return;
+  }
+
+  // live changes while the site is open
+  const changed = items.filter(u=>knownSigs[u.id] !== currentSigs[u.id]);
+  if(changed.length===0) return;
+  if(onUpdatesPage){ markUpdatesSeen(); return; }
+  changed.forEach(u=>{ knownSigs[u.id] = currentSigs[u.id]; });
+  if(isAdminUser(auth.currentUser)) return; // don't notify the admin about their own posts
+  setBadge(unseenCount + changed.length);
+  const u = changed[0];
+  const wasEdit = /^\d+\|[1-9]/.test(currentSigs[u.id]);
+  const short = (u.desc||'').length>110 ? u.desc.slice(0,110)+'…' : (u.desc||'');
+  announce((wasEdit ? '✏️ Updated: ' : '🔔 New update: ') + u.title, short || 'Tap to view');
+}
+
+function refreshNotifButtons(){
+  document.querySelectorAll('.notif-btn').forEach(b=>{
+    if(!('Notification' in window)){ b.style.display='none'; return; }
+    const p = Notification.permission;
+    b.textContent = p==='granted' ? '🔔 Notifications ON' : p==='denied' ? '🔕 Blocked in browser settings' : '🔔 Enable notifications';
+    b.disabled = (p!=='default');
+  });
+}
+function enableNotifications(){
+  if(!('Notification' in window)){ toast('This browser does not support notifications.'); return; }
+  Notification.requestPermission().then(p=>{
+    refreshNotifButtons();
+    if(p==='granted'){ toast('Notifications enabled!'); systemNotify('GHOST EDITZ','You will be notified about new updates 🔔'); }
+  });
+}
+refreshNotifButtons();
+
+/* ================= UTIL ================= */
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, s=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+}
+function escapeAttr(str){ return escapeHtml(str); }
+
+/* ================= BACKGROUND MUSIC (random track, falls-in now-playing badge) ================= */
+const SONGS = [
+  { file: 'https://song33.edgeone.dev/', title: 'Track 1', theme:{cyan:'#ff2438', blood:'#ff0022', violet:'#ff5a3c', v1:'#ff2dd4', v2:'#00e5ff', v3:'#8a2be2', speed:1.0} },
+  { file: 'https://song3wu.edgeone.dev/', title: 'Track 2', theme:{cyan:'#ff5ad1', blood:'#e0007a', violet:'#ff8adf', v1:'#ff5ad1', v2:'#ffd1f0', v3:'#c400a5', speed:1.15} },
+  { file: 'https://artistic-peach-dkl27hwo.edgeone.dev/', title: 'Track 3', theme:{cyan:'#00e5ff', blood:'#0099c2', violet:'#3cc7ff', v1:'#00e5ff', v2:'#7cffe8', v3:'#0066ff', speed:0.9} },
+  { file: 'https://songdhd.edgeone.dev/', title: 'Track 4', theme:{cyan:'#ffb020', blood:'#ff7a00', violet:'#ffd166', v1:'#ffb020', v2:'#fff066', v3:'#ff5a00', speed:1.25} },
+  { file: 'https://clumsy-emerald-g9tvozne.edgeone.dev/', title: 'Track 5', theme:{cyan:'#39ff8f', blood:'#00c26a', violet:'#8affc1', v1:'#39ff8f', v2:'#d0ffb3', v3:'#00a86b', speed:0.85} },
+  { file: 'https://helpful-amber-zt2wi3yg.edgeone.dev/', title: 'Track 6', theme:{cyan:'#c04cff', blood:'#8a2be2', violet:'#e2a8ff', v1:'#c04cff', v2:'#ffb3ff', v3:'#5a00b3', speed:1.1} },
+  { file: 'https://impressed-salmon-sfb7b2lx.edgeone.dev/', title: 'Track 7', theme:{cyan:'#ff4d6d', blood:'#c9184a', violet:'#ff8fa3', v1:'#ff4d6d', v2:'#ffccd5', v3:'#800f2f', speed:1.3} },
+  { file: 'https://new-amethyst-rku9ylmk.edgeone.dev/', title: 'Track 8', theme:{cyan:'#7cf9ff', blood:'#00b4d8', violet:'#caf0f8', v1:'#7cf9ff', v2:'#e0fbfc', v3:'#0077b6', speed:0.8} },
+  { file: 'https://comparable-amber-wdnmp6gn.edgeone.dev/', title: 'Track 9', theme:{cyan:'#ffe066', blood:'#ffb703', violet:'#fff3b0', v1:'#ffe066', v2:'#fffbd6', v3:'#fb8500', speed:1.2} },
+  { file: 'https://academic-lime-jmxaiop4.edgeone.dev/', title: 'Track 10', theme:{cyan:'#9dff33', blood:'#5fb700', violet:'#c8ff8a', v1:'#9dff33', v2:'#eaffc2', v3:'#4d8000', speed:0.95} },
+  { file: 'https://song6.edgeone.dev/', title: 'Track 11', theme:{cyan:'#ff2438', blood:'#ff0022', violet:'#ff5a3c', v1:'#ff2dd4', v2:'#00e5ff', v3:'#8a2be2', speed:1.05} },
+  // Track 12: its own video takes over the whole background + site shakes. Live wallpaper returns when it ends.
+  { file: 'https://catttack.edgeone.dev/', title: 'Track 12', mode:'takeover', shake:true, theme:{cyan:'#ff9e2c', blood:'#ff5a00', violet:'#ffd08a', v1:'#ff9e2c', v2:'#fff066', v3:'#ff3c00', speed:1.4} },
+  // Track 13: green-screen cat dances in from the side while it plays.
+  { file: 'https://cattrack2.edgeone.dev/', title: 'Track 13', mode:'cutout', side:'right', theme:{cyan:'#ff6ad5', blood:'#c400a5', violet:'#ffb3ee', v1:'#ff6ad5', v2:'#ffe0f7', v3:'#8a2be2', speed:1.3} },
+  // Track 14 & 15: phonk. The video's own audio is the track, and the anime girl (green screen removed) dances in from the side only while it plays.
+  { file: 'https://dancegirl.edgeone.dev/', title: 'Track 14', mode:'cutout', side:'right', theme:{cyan:'#ff2d55', blood:'#b0002a', violet:'#ff8fa3', v1:'#ff2d55', v2:'#ffd1dc', v3:'#5a0015', speed:1.35} },
+  { file: 'https://danc2.edgeone.dev/', title: 'Track 15', mode:'cutout', side:'left', theme:{cyan:'#b06bff', blood:'#6a00d4', violet:'#d9b3ff', v1:'#b06bff', v2:'#f0dcff', v3:'#3a0080', speed:1.35} },
+  // Track 16: audio-only background track. No video overlay — instead the
+  // whole site (header + main) pulses/bounces live to the beat.
+  { file: 'https://displaydj.edgeone.dev/', title: 'Track 16', dance:true, theme:{cyan:'#00e5ff', blood:'#0072ff', violet:'#7df9ff', v1:'#00e5ff', v2:'#c8faff', v3:'#0038a8', speed:1.2} }
+];
+
+
+/* apply a per-song "anime vibe" — recolors the whole site + resets the
+   visualizer's beat speed to roughly match that track's energy */
+const vizBars = document.querySelectorAll('#anime-viz .bar');
+const vizBaseDurations = [0.78,0.62,0.9,0.55,0.7,0.85,0.6];
+function applyTheme(theme){
+  if(!theme) return;
+  const root = document.documentElement.style;
+  root.setProperty('--cyan', theme.cyan);
+  root.setProperty('--cyan-dim', theme.blood);
+  root.setProperty('--blood', theme.blood);
+  root.setProperty('--violet', theme.violet);
+  root.setProperty('--border', theme.cyan + '48');
+  root.setProperty('--viz-c1', theme.v1);
+  root.setProperty('--viz-c2', theme.v2);
+  root.setProperty('--viz-c3', theme.v3);
+  vizBars.forEach((el,i)=>{ el.style.animationDuration = (vizBaseDurations[i]/theme.speed)+'s'; });
+}
+
+const bgAudio = document.getElementById('bgAudio');
+const npBadge = document.getElementById('now-playing');
+const npTitle = document.getElementById('npTitle');
+const animeViz = document.getElementById('anime-viz');
+let currentSongIdx = -1;
+let watchdogTimer = null;
+
+/* anime-vibe visualizer bars bounce whenever a track is actually playing */
+bgAudio.addEventListener('playing', ()=>animeViz.classList.add('playing'));
+bgAudio.addEventListener('pause', ()=>animeViz.classList.remove('playing'));
+bgAudio.addEventListener('waiting', ()=>animeViz.classList.remove('playing'));
+
+const bgAudioToggle = document.getElementById('bgAudioToggle');
+let userPausedAudio = false;
+bgAudio.addEventListener('playing', ()=>{ bgAudioToggle.textContent = '⏸'; bgAudioToggle.title = 'Pause music'; });
+bgAudio.addEventListener('pause', ()=>{ bgAudioToggle.textContent = '▶'; bgAudioToggle.title = 'Play music'; });
+function toggleBgAudio(){
+  if(bgAudio.paused){
+    userPausedAudio = false;
+    bgAudio.muted = false;
+    bgAudio.play().catch(()=>{});
+  } else {
+    userPausedAudio = true;
+    bgAudio.pause();
+  }
+}
+
+function nextSongIdx(fromIdx){
+  return (fromIdx + 1) % SONGS.length;
+}
+
+function clearWatchdog(){
+  if(watchdogTimer){ clearTimeout(watchdogTimer); watchdogTimer = null; }
+}
+
+// If a track hasn't actually started playing ~10s after we tried (dead/slow
+// link), stop waiting on the next track and just loop the current one so
+// there's never silence.
+function armWatchdog(){
+  clearWatchdog();
+  watchdogTimer = setTimeout(()=>{
+    if(bgAudio.paused || bgAudio.readyState < 2){
+      bgAudio.loop = true;
+      bgAudio.play().catch(()=>{});
+    }
+  }, 10000);
+}
+
+/* ================= SPECIAL VISUALS (takeover bg / shake / green-screen dancers) ================= */
+const takeoverVid = document.getElementById('takeoverVideo');
+const cutVid = document.getElementById('sideCut');
+let visualToken = 0;
+let syncVid = null;      // video that follows the audio clock
+let syncLocked = false;  // true = same file as the audio (keep time in sync)
+
+function clearVideo(v){
+  v.oncanplay = null;
+  v.onerror = null;
+  try{ v.pause(); }catch(e){}
+  v.removeAttribute('src');
+  try{ v.load(); }catch(e){}
+}
+function stopVisuals(){
+  visualToken++;
+  const tok = visualToken;
+  document.body.classList.remove('takeover','shaking');
+  takeoverVid.classList.remove('on');
+  cutVid.classList.remove('on');
+  syncVid = null;
+  setTimeout(()=>{           // let fade / slide-out finish, then free the videos
+    if(tok !== visualToken) return;
+    clearVideo(takeoverVid);
+    clearVideo(cutVid);
+  }, 950);
+}
+function startVisuals(song){
+  stopVisuals();
+  const tok = visualToken;
+
+  if(song.mode === 'takeover'){
+    clearVideo(takeoverVid);
+    takeoverVid.loop = true;               // never end on a stuck/black last frame
+    takeoverVid.onerror = ()=>{ if(tok===visualToken) stopVisuals(); };
+    takeoverVid.oncanplay = ()=>{
+      if(tok !== visualToken) return;
+      takeoverVid.oncanplay = null;
+      takeoverVid.currentTime = 0.03;      // force-render a real frame (avoids black flash)
+      takeoverVid.classList.add('on');
+      document.body.classList.add('takeover');
+      if(song.shake) document.body.classList.add('shaking');
+    };
+    takeoverVid.src = song.file;
+    syncVid = takeoverVid; syncLocked = true;
+    takeoverVid.play().catch(()=>{});
+    return;
+  }
+
+  if(song.mode !== 'cutout') return;
+  const cut = { src: song.file, side: song.side || 'right', locked: true };
+  clearVideo(cutVid);
+  cutVid.className = 'side-' + cut.side;
+  cutVid.loop = true;                      // never end on a stuck/black last frame
+  cutVid.onerror = ()=>{ if(tok===visualToken) stopVisuals(); };
+  cutVid.oncanplay = ()=>{
+    if(tok !== visualToken) return;
+    cutVid.oncanplay = null;
+    cutVid.currentTime = 0.03;             // force-render a real frame (avoids black flash)
+    requestAnimationFrame(()=>cutVid.classList.add('on'));
+  };
+  cutVid.src = cut.src;
+  syncVid = cutVid; syncLocked = cut.locked;
+  cutVid.play().catch(()=>{});
+}
+function syncTick(){
+  const v = syncVid;
+  if(!v) return;
+  if(bgAudio.paused){
+    if(!v.paused) v.pause();
+  } else {
+    if(v.paused) v.play().catch(()=>{});
+    if(syncLocked && bgAudio.readyState >= 2 && Math.abs(v.currentTime - bgAudio.currentTime) > 0.35){
+      try{ v.currentTime = bgAudio.currentTime; }catch(e){}
+    }
+  }
+}
+setInterval(syncTick, 400);
+bgAudio.addEventListener('playing', syncTick);
+bgAudio.addEventListener('pause', syncTick);
+bgAudio.addEventListener('seeked', syncTick);
+
+function playSong(idx){
+  currentSongIdx = idx;
+  const song = SONGS[idx];
+  bgAudio.loop = false;
+  bgAudio.src = song.file;
+  bgAudio.muted = !audioUnlocked;
+  bgAudio.play().catch(()=>{});
+  npTitle.textContent = song.title;
+  applyTheme(song.theme);
+  startVisuals(song);
+  npBadge.classList.remove('show');
+  requestAnimationFrame(()=>{
+    setTimeout(()=>npBadge.classList.add('show'), 50);
+  });
+  armWatchdog();
+}
+
+function skipTrack(){
+  playSong(nextSongIdx(currentSongIdx));
+}
+
+bgAudio.addEventListener('playing', clearWatchdog);
+bgAudio.addEventListener('ended', ()=>{
+  clearWatchdog();
+  playSong(nextSongIdx(currentSongIdx));
+});
+bgAudio.addEventListener('error', ()=>{
+  clearWatchdog();
+  playSong(nextSongIdx(currentSongIdx));
+});
+
+// Browsers block audible autoplay until the visitor interacts with the page.
+// Start muted immediately (this plays from the site on load), then unmute
+// automatically the instant the visitor taps/clicks/scrolls anywhere.
+let audioUnlocked = false;
+function unlockAudio(){
+  if(audioUnlocked) return;
+  audioUnlocked = true;
+  bgAudio.muted = false;
+  bgAudio.play().catch(()=>{});
+  window.removeEventListener('click', unlockAudio);
+  window.removeEventListener('touchstart', unlockAudio);
+  window.removeEventListener('keydown', unlockAudio);
+  window.removeEventListener('scroll', unlockAudio);
+}
+window.addEventListener('click', unlockAudio);
+window.addEventListener('touchstart', unlockAudio);
+window.addEventListener('keydown', unlockAudio);
+window.addEventListener('scroll', unlockAudio);
+
+/* ================= LIVE BEAT DANCE (whole site pulses to the bass) ================= */
+let danceCtx=null, danceAnalyser=null, danceSrcNode=null, danceFreq=null;
+let danceEnergyAvg=0, danceLastHit=0, danceScale=1;
+function ensureDanceAnalyser(){
+  if(danceAnalyser) return true;
+  try{
+    danceCtx = new (window.AudioContext||window.webkitAudioContext)();
+    danceSrcNode = danceCtx.createMediaElementSource(bgAudio);
+    danceAnalyser = danceCtx.createAnalyser();
+    danceAnalyser.fftSize = 512;
+    danceAnalyser.smoothingTimeConstant = 0.55;
+    danceFreq = new Uint8Array(danceAnalyser.frequencyBinCount);
+    danceSrcNode.connect(danceAnalyser);
+    danceAnalyser.connect(danceCtx.destination);   // must reconnect or audio goes silent
+    return true;
+  }catch(e){ return false; }
+}
+function danceBassEnergy(){
+  danceAnalyser.getByteFrequencyData(danceFreq);
+  const n = Math.max(2, Math.round(danceFreq.length*0.10));  // low-end bins ~ bass/kick
+  let sum=0;
+  for(let i=1;i<=n;i++) sum += danceFreq[i];
+  return sum/n;
+}
+function danceLoop(ts){
+  requestAnimationFrame(danceLoop);
+  const song = SONGS[currentSongIdx];
+  const active = song && song.dance && !bgAudio.paused && audioUnlocked;
+  if(active){
+    if(ensureDanceAnalyser()){
+      if(danceCtx.state === 'suspended') danceCtx.resume().catch(()=>{});
+      const e = danceBassEnergy();
+      danceEnergyAvg = danceEnergyAvg*0.92 + e*0.08;
+      if(e > danceEnergyAvg*1.3 && e > 38 && ts - danceLastHit > 180){
+        danceLastHit = ts;
+        danceScale = 1.045;
+      }
+    }
+  }
+  danceScale += (1 - danceScale) * 0.18;
+  document.documentElement.style.setProperty('--dance-scale', danceScale.toFixed(4));
+}
+requestAnimationFrame(danceLoop);
+
+/* ================= INTRO LOADER (sun-ray open) ================= */
+(function(){
+  const el = document.getElementById('introLoader');
+  if(!el) return;
+  let done = false;
+  function dismiss(){
+    if(done) return;
+    done = true;
+    el.classList.add('burst');
+    setTimeout(()=>{ el.classList.add('hide'); setTimeout(()=>el.remove(), 750); }, 650);
+  }
+  window.addEventListener('load', ()=>setTimeout(dismiss, 350));
+  setTimeout(dismiss, 4500);   // safety net so a slow asset never traps the visitor
+})();
+
+playSong(0);
+
+/* ================= INIT ================= */
+(function init(){
+  renderOrderPage();
+  initHomeStats();
+  initMembers();
+  const p = window.location.hash.replace('#','');
+  go(PAGES.includes(p) ? p : 'home');
+})();
+</script>
+</body>
+</html>
