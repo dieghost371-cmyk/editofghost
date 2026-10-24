@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dieghost371-cmyk.github.io/editofghost/sitemap.xml
