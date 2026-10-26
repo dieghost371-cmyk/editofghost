@@ -436,7 +436,7 @@ function deleteApp(id){
 }
 
 /* ================= ROUTER ================= */
-const PAGES = ["home","updates","mygame","apps","music","tiktok","videos","orders","contact","privacy","auth","profile","admin"];
+const PAGES = ["home","updates","mygame","apps","music","wallpapers","tiktok","videos","orders","contact","privacy","auth","profile","admin"];
 let authMode = "login"; // or "signup"
 
 /* ---------- per-page background wallpaper ---------- */
@@ -486,6 +486,7 @@ function go(page){
   if(page==='profile') renderProfile();
   if(page==='admin') renderAdmin();
   if(page==='apps') renderApps();
+  if(page==='wallpapers') renderWallpapers();
   if(page!=='music'){ stopPreview(); closeFullPlayer(); }
   if(page==='updates') markUpdatesSeen();
 }
