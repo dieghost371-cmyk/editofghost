@@ -572,5 +572,29 @@ html body header nav.links.open{
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script src="js/wallpapers.js"></script>
 <script src="js/app.js"></script>
+<script id="menuScrollFixJs">
+/* mobile menu: size the open menu to the real screen and make it scroll, so every page + Login can be reached */
+(function(){
+  var nav=document.querySelector('nav.links'), btn=document.getElementById('navToggle');
+  if(!nav||!btn) return;
+  function fit(){
+    if(!nav.classList.contains('open')){
+      nav.style.removeProperty('max-height');
+      nav.style.removeProperty('overflow-y');
+      return;
+    }
+    var vh=(window.visualViewport?window.visualViewport.height:window.innerHeight);
+    var h=vh-nav.getBoundingClientRect().top-8;
+    nav.style.setProperty('max-height',Math.max(160,h)+'px','important');
+    nav.style.setProperty('overflow-y','auto','important');
+    nav.style.setProperty('overscroll-behavior','contain');
+    nav.style.setProperty('-webkit-overflow-scrolling','touch');
+  }
+  new MutationObserver(function(){ setTimeout(fit,0); setTimeout(fit,400); })
+    .observe(nav,{attributes:true,attributeFilter:['class']});
+  btn.addEventListener('click',function(){ setTimeout(fit,0); setTimeout(fit,400); });
+  window.addEventListener('resize',fit);
+})();
+</script>
 </body>
 </html>
