@@ -272,6 +272,12 @@ html body header nav.links.open{
         <h3>GHOST Game 2</h3>
         <a class="btn red dl-btn" href="https://www.mediafire.com/file/ryfwsv88pstwm5k/offline_apk.7z" target="_blank" rel="noopener">Click to Download</a>
       </div>
+      <div class="game-card">
+        <span class="badge">PLAY ONLINE · PC &amp; MOBILE</span>
+        <h3>Rush Royale Runners</h3>
+        <p style="color:var(--ink-dim);font-size:13px;margin:6px 0 12px;">3D multiplayer runner &mdash; race your friends in real time.</p>
+        <a class="btn red dl-btn" href="https://dieghost371-cmyk.github.io/rushroyala/" target="_blank" rel="noopener">Play Now</a>
+      </div>
     </div>
     <p style="color:var(--ink-dim);font-size:13px;margin-top:22px;">More games coming soon — check Updates for release news.</p>
   </section>
@@ -572,6 +578,22 @@ html body header nav.links.open{
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script src="js/wallpapers.js"></script>
 <script src="js/app.js"></script>
+<script id="videoPasswordOverride">
+/* Private videos password (overrides unlockVideos in js/app.js) */
+window.unlockVideos=function(){
+  var inp=document.getElementById('videoPassword');
+  var msg=document.getElementById('videoPasswordMsg');
+  if(!inp) return;
+  if(inp.value.trim()==='12345678'){
+    document.getElementById('videoGate').style.display='none';
+    document.getElementById('videoList').style.display='';
+    if(msg) msg.textContent='';
+  }else{
+    if(msg) msg.textContent='Wrong password. Try again.';
+    inp.value='';
+  }
+};
+</script>
 <script id="menuScrollFixJs">
 /* mobile menu: size the open menu to the real screen and make it scroll, so every page + Login can be reached */
 (function(){
