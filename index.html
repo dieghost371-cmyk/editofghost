@@ -608,7 +608,7 @@ html body header nav.links.open{
           <div class="section-title" style="font-size:16px;margin-bottom:14px;">Add Private Video</div>
           <div class="field"><label>Title</label><input type="text" id="pvTitle" placeholder="e.g. Video 4"></div>
           <div class="field">
-            <label>Pick a video from your phone / PC (max 40 MB)</label>
+            <label>Pick a video from your phone / PC (max 400 MB)</label>
             <input type="file" id="pvFile" accept="video/*" onchange="pvPick(this)">
             <video id="pvPreview" controls playsinline style="display:none;max-width:100%;max-height:220px;margin-top:10px;border:1px solid var(--border);"></video>
           </div>
@@ -670,7 +670,7 @@ html body header nav.links.open{
 <script src="js/app.js"></script>
 <script id="adminVideosJs">
 (function(){
-  var META='siteVideos', DATA='siteVideoData', MAX=40*1024*1024, CHUNK=700000, fileData='';
+  var META='siteVideos', DATA='siteVideoData', MAX=400*1024*1024, CHUNK=700000, fileData='';
   function esc(t){var d=document.createElement('div');d.textContent=t==null?'':String(t);return d.innerHTML;}
   function safeUrl(u){u=(u||'').trim();return /^https?:\/\//i.test(u)?u:'';}
   function db(){try{return firebase.database();}catch(e){return null;}}
@@ -680,7 +680,7 @@ html body header nav.links.open{
     fileData='';
     var pv=document.getElementById('pvPreview');pv.style.display='none';pv.removeAttribute('src');
     var f=inp.files&&inp.files[0]; if(!f)return;
-    if(f.size>MAX){msg('Video is '+(f.size/1048576).toFixed(1)+' MB. Max is 40 MB — use the link box for bigger videos.');inp.value='';return;}
+    if(f.size>MAX){msg('Video is '+(f.size/1048576).toFixed(1)+' MB. Max is 400 MB — use the link box for bigger videos.');inp.value='';return;}
     msg('Loading video...',true);
     var r=new FileReader();
     r.onload=function(){fileData=r.result;pv.src=fileData;pv.style.display='block';msg('Ready to add ✔',true);};
